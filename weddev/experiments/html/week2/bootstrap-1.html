@@ -1,0 +1,156 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>BootStrap</title>
+    <link rel="stylesheet" href="bootstrap.css" />
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+</head>
+<body class="container">
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Store WareHouse</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Experiments</h3>
+        </div>
+        <div class="panel-body">
+            <p>
+                1.Using Boot-strap template to create a well organised page
+            </p>
+            <p>
+                2.Added styled Panel, table and form.
+            </p>
+
+            <p>
+                3.The form at the end can be used to insert new rows into the table "current inventory".
+            </p>
+        </div>
+    </div>
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Current Inventory</h3>
+        </div>
+        <div class="panel-body">
+            <table class="table" id="data">
+                <thead>
+                    <tr>
+                        <th>Item code</th>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Enter row here</h3>
+        </div>
+        <div class="row panel-body">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Item number</label>
+                        <div class="col-sm-10">
+                            <input type="text" id="item-code" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Item Name</label>
+                        <div class="col-sm-10">
+                            <input type="text" id="item-name" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Category</label>
+                        <div class="col-sm-10">
+                            <input list="cat" id="category" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Item Price</label>
+                        <div class="col-sm-10">
+                            <input type="text" id="price" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-primary" onclick="Javascript:enterData()">Enter</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <datalist id="cat">
+            <option value="Men Apparel">Men Apparel</option>
+            <option value="Women Apparel">Women Apparel</option>
+            <option value="Furniture">Furniture</option>
+            <option value="Kids Apparel">Kids Apparel</option>
+            <option value="Accesories">Accesories</option>
+            <option value="Electronics">Electronics</option>
+        </datalist>
+
+    </div>
+
+    <script>
+        function enterData() {
+
+            var row_new = document.getElementById("data").getElementsByTagName('tbody')[0].insertRow();
+            var item = document.createTextNode(document.getElementById("item-code").value);
+            var itemname = document.createTextNode(document.getElementById("item-name").value);
+            var cat = document.createTextNode(document.getElementById("category").value);
+            var price = document.createTextNode(document.getElementById("price").value);
+            row_new.insertCell(0).appendChild(item);
+            row_new.insertCell(0).appendChild(itemname);
+            row_new.insertCell(0).appendChild(cat);
+            row_new.insertCell(0).appendChild(price);
+        }
+    </script>
+
+    <footer>
+        <h2 class="black">References</h2>
+        <div class="content">
+            <p><a href="https://plus.google.com/u/0/+JoseAnnunziato/posts" target="_blank">Professor Jose's classes</a></p>
+            <p><a href="https://getbootstrap.com" target="_blank">Getbootstrap</a></p>
+        </div>
+
+        <footer id="source">
+            <h2 class="black">Source Code</h2>
+            <p><a href="../../../fileview/Default.aspx?~/experiments/html/week2/bootstrap-1.html" target="_blank">html file</a></p>
+            <p><a href="../../../fileview/Default.aspx?~/experiments/html/week2/bootstrap.css" target="_blank">CSS file</a></p>
+        </footer>
+    </footer>
+</body>
+</html>

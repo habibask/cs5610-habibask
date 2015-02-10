@@ -1,0 +1,6 @@
+./../../../story/whatisnext.htm?../experiments/html/week2/  CSS & Boot Strap
+css1.html                                 Experimenting with CSS & Internal Navigations
+slides.html                               Creating a Slideshow of Images
+maps.html                                 Working with Maps and Locations
+bootstrap-1.html                          First page with boot-strap tables,forms,navigation-bar
+bootstrap-2.html                          Vertical fluid layout with nested grids - Bootstrap

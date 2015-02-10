@@ -1,0 +1,133 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link rel="stylesheet" href="week2.css" />
+    <script src="https://maps.googleapis.com/maps/api/js"></script>
+</head>
+
+<body class="slideshow">
+    <h1 class="black">Working with Maps</h1>
+    <script>
+        var map;
+        function initialize() {
+            var mapCanvas = document.getElementById('map');
+            var mapOptions = {
+                center: new google.maps.LatLng(44.5403, -78.5463),
+                zoom: 10,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            }
+            map = new google.maps.Map(mapCanvas, mapOptions)
+        }
+        google.maps.event.addDomListener(window, 'load', initialize);
+
+        function getCurrentLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(changeLocation);
+            }
+        }
+
+        function changeLocation(position) {
+            map.setCenter(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
+            map.setZoom(14);
+        }
+
+        function getAddress() {
+           
+            var geocoder = new google.maps.Geocoder();
+            var address = document.getElementById("add").value;
+            geocoder.geocode({ 'address': address }, function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    var lat = results[0].geometry.location.lat();
+                    var long = results[0].geometry.location.lng();
+                    map.setCenter(new google.maps.LatLng(lat, long));
+                    map.setZoom(14);
+                }
+            });
+        };
+    </script>
+    <div id="map"></div>
+    <div class="inputs">
+        <div>
+            <button type="button" onclick="getCurrentLocation()">Pick Current Location</button>
+            <label id="loc"></label>
+        </div>
+        <div>
+            <label><bold>Enter Location</bold></label>
+            <input type="text" id="add" />
+            <button type="submit" onclick="JavaScript:getAddress()">See on Map</button>
+        </div>
+    </div>
+    <h2 class="black"> Experiments</h2>
+    <div class="content">
+
+        <p>
+            1.Embedding Google map using the javascript.
+        </p>
+        <p>
+            2.Option to Pick the current location using geoloaction.
+        </p>
+        <p>
+            3.Option to enter an address and see it on the Map.
+        </p>
+    </div>
+
+    <br />
+    <br />
+    <h2 class="black">Code Snippet</h2>
+    <textarea><script>
+        var map;
+        function initialize() {
+            var mapCanvas = document.getElementById('map');
+            var mapOptions = {
+                center: new google.maps.LatLng(44.5403, -78.5463),
+                zoom: 10,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            }
+            map = new google.maps.Map(mapCanvas, mapOptions)
+        }
+        google.maps.event.addDomListener(window, 'load', initialize);
+
+        function getCurrentLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(changeLocation);
+            }
+        }
+
+        function changeLocation(position) {
+            map.setCenter(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
+            map.setZoom(14);
+        }
+
+        function getAddress() {
+
+            var geocoder = new google.maps.Geocoder();
+            var address = document.getElementById("add").value;
+            geocoder.geocode({ 'address': address }, function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    var lat = results[0].geometry.location.lat();
+                    var long = results[0].geometry.location.lng();
+                    map.setCenter(new google.maps.LatLng(lat, long));
+                    map.setZoom(14);
+                }
+            });
+        };
+</script></textarea>
+
+    <h2 class="black">References</h2>
+    <div class="content">
+        <p>
+            <a href="https://developers.google.com/maps/tutorials/fundamentals/adding-a-google-map" target="_blank">
+                Google tutorial on how to embed maps
+            </a>
+        </p>
+        <p>w3schools for the functions</p>
+    </div>
+
+    <footer id="source">
+        <h2 class="black">Source Code</h2>
+        <p><a href="../../../fileview/Default.aspx?~/experiments/html/week2/maps.html" target="_blank">html file</a></p>
+        <p><a href="../../../fileview/Default.aspx?~/experiments/html/week2/week2.css" target="_blank">CSS file</a></p>
+    </footer>
+</body>
+</html>

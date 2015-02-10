@@ -1,0 +1,152 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link rel="stylesheet" href="week2.css" />
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+</head>
+<body class="slideshow">
+    <h1 class="black">Creating a slideshow of images</h1>
+
+    <a href="javascript:dragImage()">
+        <img src="" alt="Image not supported by browser" height="300" width="400" id="slideshow" />
+    </a>
+
+    <script>
+        var images = new Array();
+        images[0] = new Image();
+        images[0].src = "../../../experiments/images/slide1.jpg";
+        images[1] = new Image();
+        images[1].src = "../../../experiments/images/slide2.jpg";
+        images[2] = new Image();
+        images[2].src = "../../../experiments/images/slide3.jpg";
+        images[3] = new Image();
+        images[3].src = "../../../experiments/images/slide4.jpg";
+
+        var count = 0;
+        var currentImage = 0;
+
+        function changeImage() {
+
+            document.getElementById('slideshow').src = images[count].src;
+            currentImage = count;
+
+            if (count < 3)
+                count++;
+            else
+                count = 0;
+            setTimeout("changeImage()", 5000);
+        }
+        
+
+        function dragImage() {
+            if (currentImage == 3) {
+                document.getElementById('slideshow').src = images[0].src;
+                count = 0;
+                currentImage = 0;
+            }
+            else {
+                document.getElementById('slideshow').src = images[currentImage++].src;
+                count = currentImage;
+            }
+        }
+
+        changeImage();
+    </script>
+
+
+
+    <div>
+        <button class="slide" type="button" onclick="count = 0; changeImage();">Image1</button>
+        <button class="slide" type="button" onclick="count = 1; changeImage();">Image2</button>
+        <button class="slide" type="button" onclick="count = 2; changeImage();">Image3</button>
+        <button class="slide" type="button" onclick="count = 3; changeImage();">Image4</button>
+    </div>
+    <br />
+    <br />
+    <h2 class="black"> Experiments</h2>
+    <div class="content">
+
+        <p>
+            1.Creating images within Javascript and changing the source attribute of the img element with 4sec timelapse.
+        </p>
+        <p>
+            2.Also added buttons below to change the image as required.
+        </p>
+
+        <p>
+            3.By clicking on the image we can move forward without waiting for the time.
+        </p>
+
+    </div>
+    <br />
+    <br />
+    <h2 class="black">Code Snippet</h2>
+    <textarea>
+        <a href="javascript:dragImage()">
+            <img src="" alt="Image not supported by browser" height="300" width="400" id="slideshow" />
+        </a>
+
+        <script>
+            var images = new Array();
+            images[0] = new Image();
+            images[0].src = "../../../experiments/images/slide1.jpg";
+            images[1] = new Image();
+            images[1].src = "../../../experiments/images/slide2.jpg";
+            images[2] = new Image();
+            images[2].src = "../../../experiments/images/slide3.jpg";
+            images[3] = new Image();
+            images[3].src = "../../../experiments/images/slide4.jpg";
+
+            var count = 0;
+            var currentImage = 0;
+
+            function changeImage() {
+
+                document.getElementById('slideshow').src = images[count].src;
+                currentImage = count;
+
+                if (count < 3)
+                    count++;
+                else
+                    count = 0;
+                setTimeout("changeImage()", 2000);
+            }
+            function dragImage() {
+                if (currentImage == 3) {
+                    document.getElementById('slideshow').src = images[0].src;
+                    count = 0;
+                    currentImage = 0;
+                }
+                else {
+                    document.getElementById('slideshow').src = images[currentImage++].src;
+                    count = currentImage;
+                }
+            }
+
+            changeImage();
+        </script>
+    </textarea>
+
+    <h2 class="black">References</h2>
+    <div class="content">
+        <p><a href="https://plus.google.com/u/0/+JoseAnnunziato/posts" target="_blank">Professor Jose's classes</a></p>
+        <p>Images from google</p>
+        <p>w3schools for the functions</p>
+    </div>
+
+    <footer id="source">
+        <h2 class="black">Source Code</h2>
+        <p><a href="../../../fileview/Default.aspx?~/experiments/html/week2/slides.html" target="_blank">html file</a></p>
+        <p><a href="../../../fileview/Default.aspx?~/experiments/html/week2/week2.css" target="_blank">CSS file</a></p>
+    </footer>
+
+</body>
+</html>

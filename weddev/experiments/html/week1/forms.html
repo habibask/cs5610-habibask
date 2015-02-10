@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Forms</title>
+    <link rel="stylesheet" href="../../css/style.css" />
+</head>
+<body>
+    <div>
+        <h2>Handling Input elements in a Form</h2>
+    </div>
+    <hr />
+    <div>
+        <form name="foodselection">
+            
+            <div class="inputs">
+                <datalist id="cuisines">
+                    <option>Italian</option>
+                    <option>Indian</option>
+                    <option>Chinese</option>
+                    <option>Thai</option>
+                    <option>Mexican</option>
+                </datalist>
+                <label for="cuisine">Choose Cuisine</label>
+                <input list="cuisines" type="text" name="cuisine" id="cuisine"/>
+            </div>
+            <div class="inputs">
+                <label for="price">Price range</label>
+                10$
+                <input type="range" max="100" min="10" name="price" id="price" />
+                100$
+            </div>
+            <div class="inputs">
+                <input type="radio" name="time" id="time" value="lunch" />
+                Lunch
+                <input type="radio" name="time" id="time" value="dinner" />
+                Dinner
+            </div>
+            <div class="inputs">
+                <label for="date" id="labelfordate">Choose date</label>
+                <input type="date" name="date" id="date" />
+            </div>
+            <div class="inputs">
+                <label for="search">Search</label>
+                <input type="search" name="search" id="search" />
+            </div>
+            <div class="inputs">
+                <label for="phone">Contact number</label>
+                <input type="number" style="-webkit-appearance:none;margin:0;" name="phone" id="phone" />
+            </div>
+            <div class="inputs">
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" placeholder="abc@xyz.com" />
+            </div>
+             <div class="buttons">
+                <button type="submit" style="font-size:14pt">Submit</button>
+                <button type="reset" style="font-size:14pt">Reset</button>
+            </div>
+        </form>
+    </div>
+    <footer>
+        <h3>Source Code</h3>
+        <a href="../../../fileview/Default.aspx?~/experiments/html/week1/forms.html" target="_blank">html file</a>
+        <a href="../../../fileview/Default.aspx?~/experiments/css/style.css" target="_blank">CSS file</a>
+    </footer>
+</body>
+</html>

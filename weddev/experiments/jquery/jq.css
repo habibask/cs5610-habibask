@@ -1,0 +1,58 @@
+﻿body{
+    background-image:url(background.jpg);
+    background-attachment:fixed;
+    background-size:cover;
+}
+
+.sortablelist {
+    list-style: none;
+    width: 400px;
+    height: 200px;
+    border-color: red;
+    border: solid;
+}
+
+    .sortablelist li {
+        display: inline-block;
+        width: 120px;
+        height: 60px;
+    }
+
+        .sortablelist li div {
+            width: 100px;
+            height: 50px;
+            color: blue;
+            background-color: black;
+            border-width: 3px;
+            border-color: blue;
+            font-size: 20pt;
+            text-align: center;
+        }
+
+body {
+    margin: 50px;
+}
+
+textarea {
+    height: 100px;
+    width: 500px;
+}
+
+.main {
+    padding: 20px;
+}
+
+.newline {
+    display: inline-block;
+}
+
+.sticky {
+            width: 100px;
+            height: 150px;
+            background-color: lightyellow;
+            font-family: 'Buxton Sketch';
+        }
+
+.main2{
+    height:500px;
+}

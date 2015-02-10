@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Experiment3 with jQuery</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/jquery-ui.css" />
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery-ui.js"></script>
+
+    <script src="003-jq.js"></script>
+
+    <link rel="stylesheet" href="jq.css" />
+
+</head>
+<body>
+    <h1 class="header">Applying effects on Images</h1>
+    <div class="main">
+        <div class="col-lg-6 panel panel-danger">
+            <div class="panel-heading">
+                Shake effect
+            </div>
+            <center><img class="img1" src="../images/slide1.jpg" /></center>
+        </div>
+        <div class="col-lg-6  panel panel-danger">
+            <div class="panel-heading">
+                Slide effect
+            </div>
+            <center><img class="img2" src="../images/slide2.jpg" /></center>
+
+        </div>
+        <div class="col-lg-6 panel panel-danger">
+            <div class="panel-heading">
+                Puff effect
+            </div>
+            <center><img class="img3"  src="../images/slide3.jpg" /></center>
+
+        </div>
+        <div class="col-lg-6 panel panel-danger">
+            <div class="panel-heading">
+                Explode effect
+            </div>
+            <center><img class="img4" src="../images/slide4.jpg" /></center>
+
+        </div>
+        <div class="col-lg-12 ">
+            <div class="">
+                <button type="button" class="btn btn-danger" onclick="applyEffects()">See Effects</button>
+            </div>
+        </div>
+
+    </div>
+        
+    <br />
+    <div class="col-lg-12">
+        <h2 class="black"> Experiments</h2>
+
+        <div class="content">
+
+            <p>
+                1.Added images in the div elements using the grid alignment
+            </p>
+            <p>
+                2.Wrote a Javascript function to apply effect on each of the image respectively
+            </p>
+
+        </div>
+        <h2 class="black">Code Snippet</h2>
+        <textarea>
+            function applyEffects() {
+            $(function () {
+            $(".img1").effect("shake", 1000,previousImage());
+            $(".img2").effect("slide", 1000,previousImage());
+            $(".img3").effect("puff", 1000,previousImage());
+            $(".img4").effect("explode", 1000,previousImage());
+            console.log("success");
+            });
+            }
+            function previousImage() {
+            setTimeout(function () {
+            $("img").removeAttr("style").hide().fadeIn();
+            }, 1000);
+            };
+        </textarea>
+
+        <h2 class="black">References</h2>
+        <div class="content">
+            <p><a href="https://plus.google.com/u/0/+JoseAnnunziato/posts" target="_blank">Professor Jose's classes</a></p>
+            <p>jquery.com</p>
+        </div>
+
+    <footer id="source">
+        <h2 class="black">Source Code</h2>
+        <p><a href="../../fileview/Default.aspx?~/experiments/jquery/003.html" target="_blank">html file</a></p>
+        <p><a href="../../fileview/Default.aspx?~/experiments/jquery/003-jq.js" target="_blank">Script file</a></p>
+    </footer>
+    </div>
+</body>
+</html>

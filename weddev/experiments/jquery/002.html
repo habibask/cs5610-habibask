@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Experiment2 with jQuery</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/jquery-ui.css" />
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery-ui.js"></script>
+
+    <script src="002-jq.js"></script>
+
+    <link rel="stylesheet" href="jq.css" />
+
+</head>
+<body>
+    <h1 class="header">Creating stickies</h1>
+    <div class="col-lg-12">
+        <div class="col-lg-12 main2 panel panel-danger"></div>
+        <div class="col-lg-12 ">
+            <div class="">
+                <button type="button" class="btn btn-danger" onclick="addSticky()">Add Note</button>
+            </div>
+        </div>
+
+    </div>
+
+    <br />
+    <div>
+        <h2 class="black"> Experiments</h2>
+    </div>
+    <div class="content">
+
+        <p>
+            1.Created resizable window to resemble sticky canvas and a draggable button to add a sticky
+        </p>
+        <p>
+            2.Wrote a Javascript function to add a new sticky within the canvas
+        </p>
+
+        <p>
+            3.Stickies are resizable and dragabble.
+        </p>
+
+    </div>
+    <h2 class="black">Code Snippet</h2>
+    <textarea>
+        var posx = 100;
+
+        function addSticky() {
+        $(function () {
+        console.log("success");
+
+        var data = $("<div contenteditable='true' class='panel panel-primary sticky'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </div>");
+        data
+        .draggable()
+        .css({
+        "color": "blue",
+        "position": "absolute",
+        "left":posx,
+        "right":100
+        });
+        posx = posx + 50;
+        $(".main").append(data);
+        $(".sticky").draggable();
+        $(".sticky").resizable();
+        });
+        }
+    </textarea>
+
+    <h2 class="black">References</h2>
+    <div class="content">
+        <p><a href="https://plus.google.com/u/0/+JoseAnnunziato/posts" target="_blank">Professor Jose's classes</a></p>
+        <p>jquery.com</p>
+    </div>
+
+    <footer id="source">
+        <h2 class="black">Source Code</h2>
+        <p><a href="../../fileview/Default.aspx?~/experiments/jquery/002.html" target="_blank">html file</a></p>
+        <p><a href="../../fileview/Default.aspx?~/experiments/jquery/002-jq.js" target="_blank">Script file</a></p>
+    </footer>
+</body>
+</html>

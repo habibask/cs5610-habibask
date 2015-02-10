@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Experiment5 with jQuery</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/jquery-ui.css" />
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery-ui.js"></script>
+
+    <script src="005-jq.js"></script>
+
+    <link rel="stylesheet" href="jq.css" />
+</head>
+<body>
+    <h2>Overlaying dialogue </h2>
+   
+        <div>
+            <p>
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
+                when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
+                It has survived not only five centuries, but also the leap into electronic typesetting, 
+                remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets 
+                containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker 
+                including versions of Lorem Ipsum.
+            </p>
+        </div>
+    <div>
+        <button type="button" onclick="createDialogue()">Click me</button>
+    </div>
+
+    
+    <br />
+    <div class="col-lg-12">
+        <h2 class="black"> Experiments</h2>
+
+        <div class="content">
+
+            <p>
+                Created a page in which a button opens up a dialogue box to shadow the main content and overlay the dialogue box.
+            </p>
+        </div>
+        <h2 class="black">Code Snippet</h2>
+        <textarea>
+            function createDialogue() {
+            var msg = $("<div title='Hi!!!!'>You are seeing a dialogue box created with jQuery :)</p></div>");
+            $(msg).dialog({
+            modal:true,
+            buttons: {
+            Ok: function() {
+            $( this ).dialog( "close" );
+            }
+            }
+            });
+            }
+        </textarea>
+
+        <h2 class="black">References</h2>
+        <div class="content">
+            <p><a href="https://plus.google.com/u/0/+JoseAnnunziato/posts" target="_blank">Professor Jose's classes</a></p>
+            <p>jquery.com</p>
+        </div>
+
+        <footer id="source">
+            <h2 class="black">Source Code</h2>
+            <p><a href="../../fileview/Default.aspx?~/experiments/jquery/005.html" target="_blank">html file</a></p>
+            <p><a href="../../fileview/Default.aspx?~/experiments/jquery/005-jq.js" target="_blank">Script file</a></p>
+        </footer>
+    </div>
+</body>
+</html>
