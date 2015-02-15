@@ -1,0 +1,6 @@
+./../../story/whatisnext.htm?../experiments/ajax-angular/  AJAX and Angular
+001.html                                 Dictionary search with AJAX and JSON
+002.html                                 Bookshop data with AJAX & XML
+003.html                                 Form with AngularJS
+004.html                                 Actor search with AngularJS and JSONP
+005.html                                 Course selection & unselection with AngularJS

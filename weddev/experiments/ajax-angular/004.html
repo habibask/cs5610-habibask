@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Actor Info</title>
+
+    <script src="ajs/angular.min.js"></script>
+    <script src="ajs/angular.min.js.map"></script>
+    <script src="ajs/004-aa.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <link rel="stylesheet" href="jq.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+</head>
+<body ng-app="ActorsApp">
+    <div ng-controller="ActorsAppController" class="container">
+        <h1>Actror/Actresses Database</h1>
+
+        <h2>Search Actor</h2>
+        <div class="input-group col-md-6">
+            <input type="text" ng-model="searchByName" class="form-control" placeholder="Search for Actor...">
+            <span class="input-group-btn">
+                <button ng-click="searchActor()" class="btn btn-default" type="button">Go!</button>
+            </span>
+        </div><!-- /input-group -->
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Full name</th>
+                    <th>Date of Birth</th>
+                    <th>Place of Birth</th>
+                    <th>Biography</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="actor in actors| orderBy : 'urlPhoto'">
+                    <td style="width:100pt">{{actor.name}}</td>
+                    <td>{{actor.dateOfBirth}}</td>
+                    <td>{{actor.placeOfBirth}}</td>
+                    <td>
+                        <img class="poster" ng-src="{{actor.urlPhoto}}" width="50" />
+                        {{actor.bio}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+    <div class="col-md-10 well" style="margin:100px">
+
+        <div>
+            <h3 class="black"> Experiments</h3>
+        </div>
+        <div class="content">
+
+            <p>An application to search for actor's name and get the details</p>
+            <p>
+                This experiment uses the search key and calls the api myapifilms.com with the querystring.The retrieved data is rendered using a table.
+                Sorted the results using ORDER BY clause in ng-repeat attribute of html
+                Tried to work with different apis like flight information, school databases but couldnot successfully connect because of permission issues.
+                This experiment has taken considerable time as I am new to the concept of AngularJS. Learnt the topic well with many trial and errors.
+                </p>
+
+        </div>
+        <h3 class="black">Code Snippet</h3>
+        <textarea>
+            var app = angular.module("ActorsApp", []);
+
+            function myapifilms(response) {
+            alert(response);
+            }
+
+            app.controller("ActorsAppController", function ($scope, $http) {
+
+
+            $scope.searchActor = function () {
+            var name = $scope.searchByName;
+            $http.jsonp("http://www.myapifilms.com/imdb?name="+name+"&format=JSONP&filmography=0&limit=10&lang=en-us&exactFilter=0&bornDied=0&starSign=0&uniqueName=0&actorActress=1&actorTrivia=0&actorPhotos=N&actorVideos=N&salary=0&spouses=0&tradeMark=0&personalQuotes=0&callback=JSON_CALLBACK")
+            .success(function (response) {
+            console.log(response);
+            $scope.actors = response;
+            });
+            }
+            });
+        </textarea>
+        <div>
+            <p>
+                The code snippet has a controller defined for the app ActorsApp. Within the controller there is a connection made to the url using http.jsonp() method.
+            The data retrieved is rendered to the table in html page using nb-repeat attribute. </p>
+        </div>
+
+        <h3 class="black">References</h3>
+        <div class="content">
+            <p><a href="https://plus.google.com/u/0/+JoseAnnunziato/posts" target="_blank">Professor Jose's classes</a></p>
+        </div>
+
+        <footer id="source">
+            <h3 class="black">Source Code</h3>
+            <p><a href="../../fileview/Default.aspx?~/experiments/ajax-angular/004.html" target="_blank">html file</a></p>
+            <p><a href="../../fileview/Default.aspx?~/experiments/ajax-angular/ajs/004-aa.js" target="_blank">Script file</a></p>
+        </footer>
+    </div>
+</body>
+</html>

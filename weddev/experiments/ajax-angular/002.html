@@ -1,0 +1,151 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>AJAX with XML</title>
+    <link rel="stylesheet" href="css/jquery-ui.css" />
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <script src="002-aa.js"></script>
+    <link rel="stylesheet" href="jq.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+    <h1 class="header" style="margin:15px">AJAX with XML</h1>
+    <div style="margin:10px">
+        <table id="booktable" class="table table-primary table-striped table-bordered table-condensed"></table>
+        <button id="btn" onclick="loadXMLDoc('books.xml')" class="btn-info">Click to retrieve book data</button>
+    </div>
+
+    <br />
+    <div class="col-md-11 well" style="margin:10px">
+
+        <div>
+            <h3 class="black"> Experiments</h3>
+        </div>
+        <div class="content">
+
+            <p>Click on the button above to expand the list of books available in xml file</p>
+            <p>
+                Created an xml file that contains information regarding each book in respective tags.
+                Added a button which when clicked calls a function that retrieves data from each tag of xml and renders to HTML by creating table row for each book and appending to the table already present.
+                The button changes to Hide table once the table is loaded. When this is clicked the table is removed.
+             </p>
+
+        </div>
+        <h3 class="black">Code Snippet</h3>
+        <textarea>
+            function loadXMLDoc(file) {
+            var xmlhttp;
+            var txt, x, xx, i;
+
+            if (window.XMLHttpRequest) {
+            xmlhttp = new XMLHttpRequest();
+
+            }
+            var table = $("#booktable");
+            table.empty();
+            xmlhttp.onreadystatechange = function () {
+
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            var tr = $("<tr>
+                <th>Title</th>");
+                tr.append("
+                <th>Author</th>");
+                tr.append("
+                <th>Price</th>");
+                tr.append("
+                <th>Description</th>
+            </tr>");
+            table.append(tr);
+            x = xmlhttp.responseXML.documentElement.getElementsByTagName("book");
+            for (i = 0; i < x.length; i++) {
+            var content = $("<tr>
+                ");
+                xx = x[i].getElementsByTagName("title");
+                console.log(xx);
+
+                {
+                try {
+                content.append("
+                <td>" + xx[0].firstChild.nodeValue + "</td>");
+                }
+                catch (er) {
+                content.append("
+                <td> </td>");
+                }
+                }
+                xx = x[i].getElementsByTagName("author");
+                {
+                try {
+                content.append("
+                <td>" + xx[0].firstChild.nodeValue + "</td>");
+                }
+                catch (er) {
+                content.append("
+                <td> </td>");
+                }
+                }
+                xx = x[i].getElementsByTagName("price");
+                {
+                try {
+                content.append("
+                <td>" + xx[0].firstChild.nodeValue + "</td>");
+                }
+                catch (er) {
+                content.append("
+                <td> </td>");
+                }
+                }
+                xx = x[i].getElementsByTagName("description");
+                {
+                try {
+                content.append("
+                <td>" + xx[0].firstChild.nodeValue + "</td>");
+                }
+                catch (er) {
+                content.append("
+                <td> </td>");
+                }
+                }
+                content.append("
+            </tr>");
+            table.append(content);
+            }
+            }
+            }
+            xmlhttp.open("GET", file, true);
+            xmlhttp.send();
+            $("#btn").text("Hide table");
+            $("#btn").attr("onclick","hideTable()");
+
+            }
+
+            function hideTable() {
+            $("#booktable").empty();
+            }
+        </textarea>
+        <div>
+            <p>
+                In this jquery snippet, there is event handler for the button "Click to retrieve book data".
+                 On clicking the button the the function generates a XMLHTTPRequest and retrieves information from the file books.xml.
+                It appends the info to the tr tags and appends to the table in each iteration.</p>
+        </div>
+
+        <h3 class="black">References</h3>
+        <div class="content">
+            <p><a href="https://plus.google.com/u/0/+JoseAnnunziato/posts" target="_blank">Professor Jose's classes</a></p>
+            <p><a href="https://jquery.com" target="_blank">jquery.com</a></p>
+            <p><a href="http://w3schools.com" target="_blank">W3 Schools</a></p>
+        </div>
+
+        <footer id="source">
+            <h3 class="black">Source Code</h3>
+            <p><a href="../../fileview/Default.aspx?~/experiments/ajax-angular/002.html" target="_blank">html file</a></p>
+            <p><a href="../../fileview/Default.aspx?~/experiments/ajax-angular/002-aa.js" target="_blank">Script file</a></p>
+        </footer>
+    </div>
+</body>
+</html>

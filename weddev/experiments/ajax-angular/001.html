@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Dictionary with AJAX</title>
+    <link rel="stylesheet" href="css/jquery-ui.css" />
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <script src="001-aa.js"></script>
+    <link rel="stylesheet" href="jq.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+    <h1 class="header" style="margin:15px">Dictionary with AJAX</h1>
+    <div class="input-group col-md-6" style="margin:15px">
+        <input type="text" class="form-control" id="inputquery" placeholder="Search for word...">
+        <span class="input-group-btn">
+            <button class="btn btn-default" type="button" id="search">Search</button>
+        </span>
+    </div>
+
+    <ul class="list-group data col-md-8" style="margin:10px;list-style:none"></ul>
+
+    <div class="col-md-11 well" style="margin:10px">
+
+        <div>
+            <h3 class="black"> Experiments</h3>
+        </div>
+        <div class="content">
+
+            <p>Enter a word and click on search to view various definitions available</p>
+            <p>
+                Searched for an api that provides dictionary and linked it to the page using ajax() function in jQuery.
+                First I tried retrieving the data successfully and displaying it on the page.
+                In the next step I added an input parameter for the word to be looked in the dictionary.
+                Concatenated the word in the dictionary and displayed the results in the form of list with badges containing the partsofspeech for the word
+            </p>
+
+        </div>
+        <h3 class="black">Code Snippet</h3>
+        <textarea>
+            $(function () {
+            $("#search").click(function () {
+
+            var word = $("#inputquery").val();
+            $.ajax({
+            url: "http://api.wordnik.com:80/v4/word.json/" + word + "/definitions?limit=10&includeRelated=true&useCanonical=false&includeTags=false&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5",
+            success: renderData
+            });
+            });
+            });
+            function renderData(array) {
+            var ul = $(".data");
+            ul.empty();
+            console.log(array.length);
+            if (array.length != 0) {
+            for (var i in array) {
+            var data = array[i];
+            var mean = data.text;
+            var pos = data.partOfSpeech;
+            var li = $("<li class='list-group-item-success'><span class='badge' style='margin:3px'>" + pos + "</span>" + mean + "</li>");
+            ul.append(li);
+            }
+            }
+            else {
+            var li = $("<li class='list-group-item-danger'><span class='badge' style='margin:3px'>Note</span>There is no definition in the dictionary</li>");
+            ul.append(li);
+            }
+            };
+
+        </textarea>
+        <div>
+            <p>
+                In this jquery snippet, there is event handler for the button "search". On clicking the button the ajax function is invoked.
+                The connection to the url is made and data retrieved as JSON as objects. Array is then iterated over and rendered to HTML as the items in the list.
+            </p>
+        </div>
+
+        <h3 class="black">References</h3>
+        <div class="content">
+            <p><a href="https://plus.google.com/u/0/+JoseAnnunziato/posts" target="_blank">Professor Jose's classes</a></p>
+            <p><a href="https://jquery.com" target="_blank">jquery.com</a></p>
+            <p><a href="http://api.wordnik.com" target="_blank">API page</a></p>
+        </div>
+
+        <footer id="source">
+            <h3 class="black">Source Code</h3>
+            <p><a href="../../fileview/Default.aspx?~/experiments/ajax-angular/001.html" target="_blank">html file</a></p>
+            <p><a href="../../fileview/Default.aspx?~/experiments/ajax-angular/001-aa.js" target="_blank">Script file</a></p>
+        </footer>
+    </div>
+</body>
+</html>

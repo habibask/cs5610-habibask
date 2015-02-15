@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>AngularJS</title>
+
+    <script src="ajs/angular.min.js"></script>
+    <script src="ajs/angular.min.js.map"></script>
+    <script src="ajs/003-aa.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <link rel="stylesheet" href="jq.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+</head>
+<body ng-app="EducationApp">
+    <div ng-controller="EducationAppController" class="container">
+        <h1>Add your education details</h1>
+        <button ng-click="addRow()" class="btn btn-danger" style="margin:15px">
+            <span class="glyphicon glyphicon-plus"></span>
+        </button>
+        <button ng-click="updateRow()" class="btn btn-primary">
+            <span class="glyphicon glyphicon-ok"></span>
+        </button>
+        <div class="col-md-7">
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">University</span>
+                <input type="text" ng-model="erow.uni" class="form-control" placeholder="University" aria-describedby="basic-addon1">
+            </div>
+
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">Degree</span>
+                <input type="text" ng-model="erow.degree" class="form-control" placeholder="Degree" aria-describedby="basic-addon1">
+            </div>
+
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">Major</span>
+                <input type="text" ng-model="erow.major" class="form-control" placeholder="Major of study" aria-describedby="basic-addon1">
+            </div>
+
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">Year</span>
+                <input type="text" ng-model="erow.year" class="form-control" placeholder="Year graduated" aria-describedby="basic-addon1">
+            </div>
+        </div>
+        <div class="col-md-8 panel panel-danger" style="margin:20px"  >
+            <div class="panel-heading">Education Background</div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>University</th>
+                        <th>Degree</th>
+                        <th>Major</th>
+                        <th>Year</th>
+                        <th>&nbsp;</th>
+                    </tr>
+
+                </thead>
+                <tbody>
+                    <tr ng-repeat="erow in erows">
+                        <td>{{erow.uni}}</td>
+                        <td>{{erow.degree}}</td>
+                        <td>{{erow.major}}</td>
+                        <td>{{erow.year}}</td>
+                        <td>
+                            <button ng-click="editRow(erow)" class="btn btn-warning">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br />
+    <br />
+    <div class="col-md-11 well" style="margin:10px">
+
+        <div>
+            <h3 class="black"> Experiments</h3>
+        </div>
+        <div class="content">
+
+            <p>A form to enter education details in the table</p>
+            <p>
+               This is the first experiment with AngularJS. Created a MVC model and added controller for the data. 
+            There are options to add new rows and also edit the old rows. The okay button clears the data after the edit has happened </p>
+
+        </div>
+        <h3 class="black">Code Snippet</h3>
+        <textarea>
+            var app = angular.module("EducationApp", []);
+            app.controller("EducationAppController",
+            function ($scope, $http) {
+            var erows = [
+            {
+            uni: "Hyderabad Public School",
+            degree: "High School",
+            major: "maths",
+            year: "2005"
+            }
+            ];
+            $scope.erows = erows;
+            $scope.addRow = function () {
+            var newRow = {
+            uni: $scope.erow.uni,
+            degree: $scope.erow.degree,
+            major: $scope.erow.major,
+            year: $scope.erow.year
+            };
+            $scope.erows.push(newRow);
+            }
+            $scope.editRow = function (erow) {
+            $scope.erow = erow;
+            }
+
+            $scope.updateRow = function () {
+            alert($scope.erow.uni);
+            $scope.erow = "";
+            }
+            });
+
+
+        </textarea>
+        <div>
+            <p>
+               The code snippet has a controller defined which adds one row to the table by default.
+                there are two functions addRow and updateRow which take the data from the inputs using $erow in $scope and write them to the table or update respectively.
+            </p>
+        </div>
+
+        <h3 class="black">References</h3>
+        <div class="content">
+            <p><a href="https://plus.google.com/u/0/+JoseAnnunziato/posts" target="_blank">Professor Jose's classes</a></p>
+        </div>
+
+        <footer id="source">
+            <h3 class="black">Source Code</h3>
+            <p><a href="../../fileview/Default.aspx?~/experiments/ajax-angular/003.html" target="_blank">html file</a></p>
+            <p><a href="../../fileview/Default.aspx?~/experiments/ajax-angular/ajs/003-aa.js" target="_blank">Script file</a></p>
+        </footer>
+    </div>
+</body>
+</html>
