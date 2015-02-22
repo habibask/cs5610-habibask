@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <script src="../js/jquery.js"></script>
+    <script src="../js/jquery-ui.js"></script>
+
+    <script src="../js/angular.min.js" ></script>
+    <script src="../js/angular-route.min.js"></script>
+    <script src="003.js"></script>
+    <script src="003-service.js"></script>
+
+</head>
+<body ng-app="FirstRoutingApp">
+    <div class="container">
+        <ul class="nav nav-pills">
+            <li id="" class="home active"><a href="#/home">Home</a></li>
+            <li id="login" class="about"><a  href="#/about">About</a></li>
+            <li id="login" class="login"><a  href="#/login">Login</a></li>
+            <li class="register"><a href="#/register">Register</a></li>
+        </ul>
+        <div ng-view></div>
+    </div>
+</body>
+</html>

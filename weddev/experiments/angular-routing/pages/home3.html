@@ -1,0 +1,128 @@
+﻿<h2 style="color:steelblue;font-weight:bold;margin:50px">Dictionary</h2>
+
+<div class="input-group col-md-6" style="margin-left:50px;margin-bottom:30px;">
+    <input type="text" class="form-control" ng-model="inputquery" placeholder="Search for word...">
+    <span class="input-group-btn">
+        <button class="btn btn-default" ng-click="searchWord()" type="button" id="search">Search</button>
+    </span>
+</div>
+
+<ul class="list-group data col-md-8" style="margin:15px;margin-left:50px;list-style:none" ng-repeat="mean in meanings">
+
+    <li class='list-group-item-success'><span class='badge' style='margin:3px'>{{mean.partOfSpeech}}</span>{{mean.text}}</li>
+
+</ul>
+
+<div class="col-md-10 well" style="margin:50px;margin-top:0px">
+
+    <div>
+        <h3 class="black">Experiments</h3>
+    </div>
+    <div class="content">
+
+        <p>An application which keeps track of the history of the words searched so far.
+                   
+        <p>
+            In this experiment, I worked with the concept of angular-routing and services along with the controller functions by creating 2 seperate files home.html and history.html.
+            <br />
+            The pages are then linked with the routing and shown in the container of the main page using ng-view attribute.
+            <br />
+            There are functions defined in the pages in the history tab.
+             Whenever a user searches for a word, he gets meanings in the home page and the word
+             is added to an array which is shown in history tab.
+            </p>
+
+    </div>
+    <h3 class="black">Code Snippet</h3>
+    <textarea style="width:300pt;height:200pt">
+        var app = angular.module("FirstRoutingApp", ['ngRoute']);
+
+        app.config(['$routeProvider',
+        function ($routeProvider) {
+        $routeProvider.
+        when('/home', {
+        templateUrl: 'pages/home3.html',
+        controller: 'homeController'
+        }).
+        when('/history', {
+        templateUrl: 'pages/history.html',
+        controller: 'historyController'
+
+        }).
+        otherwise({
+        redirectTo: '/home'
+        });
+        }]);
+
+
+        app.controller("historyController", function ($scope, WordService) {
+        $scope.wordHistory = WordService.wordHistory;
+        });
+
+
+        app.controller("homeController", function ($scope, WordService) {
+
+        $scope.searchWord = function () {
+        var word = $scope.inputquery;
+        $scope.wordHistory = [];
+        WordService.search(word, function (response) {
+        if (response.length != 0) {
+
+        $scope.meanings = response;
+        console.log($scope.wordHistory);
+        } else {
+        var meanings = [{ text: 'There is no definition in the dictionary', partOfSpeech: 'Note' }];
+        $scope.meanings = meanings;
+        }
+        })
+        };
+
+        });
+
+        ---Sevice page
+        app.factory('WordService', function WordService($http) {
+
+        var wordHistory = [];
+
+
+        var searchWord = function (word,callback) {
+        $http.jsonp("http://api.wordnik.com:80/v4/word.json/" + word + "/definitions?limit=10&includeRelated=true&useCanonical=false&includeTags=false&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5&callback=JSON_CALLBACK")
+        .success(function (response) {
+        wordHistory.push(word);
+        console.log(wordHistory);
+        callback(response);
+        });
+        };
+
+        return {
+        search: searchWord,
+        wordHistory: wordHistory
+        }
+
+        });
+    </textarea>
+    <div>
+        <br />
+        <p>
+            The code snippet shows how a application is configured for each relative url.
+            There are different cases specified for different urls and the default case is mentioned in otherwise clause.
+            The Service is defined usinf app.factory() method and then used to make calls from the historyController. 
+            The response from the method is handled using a callback function.
+        </p>
+    </div>
+
+    <h3 class="black">References</h3>
+    <div class="content">
+        <p><a href="https://plus.google.com/u/0/+JoseAnnunziato/posts" target="_blank">Professor Jose's classes</a></p>
+        <p><a href="http://getbootstrap.com" target="_blank">BootStrap format</a></p>
+
+    </div>
+
+    <footer id="source">
+        <h3 class="black">Source Code</h3>
+        <p><a href="../../fileview/Default.aspx?~/experiments/angular-routing/004.html" target="_blank">html file</a></p>
+        <p><a href="../../fileview/Default.aspx?~/experiments/angular-routing/004.js" target="_blank">Script file</a></p>
+        <p><a href="../../fileview/Default.aspx?~/experiments/angular-routing/004-service.js" target="_blank">Service Script file</a></p>
+
+    </footer>
+</div>

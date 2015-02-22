@@ -1,0 +1,82 @@
+﻿<h2 style="color:steelblue;font-weight:bold;margin:50px">Home</h2>
+
+<div class="col-md-10 well" style="margin:50px;margin-top:0px">
+
+    <div>
+        <h3 class="black">Experiments</h3>
+    </div>
+    <div class="content">
+
+        <p>An application which demonstrates the use of angular controllers that are used in the navigation pages yet the source code remains  with the main page
+                   
+        <p>
+            In this experiment, I worked with the concept of angular-routing along with the controller functions by creating 3 seperate files about.html, home.html and notify.html.
+            <br />
+            The pages are then linked with the routing and shown in the container of the main page using ng-view attribute.
+            <br />
+            There is a function defined on the button available in the notify page. On clicking notify me the email is registered and shown in the table below.
+            This feature can be handy when we make changes to cache or database with in the same page irrespective of other pages.
+        </p>
+
+    </div>
+    <h3 class="black">Code Snippet</h3>
+    <textarea style="width:300pt;height:200pt">
+        var app = angular.module("FirstRoutingApp", ['ngRoute']);
+
+        app.config(['$routeProvider',
+        function ($routeProvider) {
+        $routeProvider.
+        when('/home', {
+        templateUrl: 'pages/home1.html',
+        }).
+        when('/about', {
+        templateUrl: 'pages/about.html',
+        }).
+        when('/notify', {
+        templateUrl: 'pages/notify.html',
+        controller: 'registerController'
+        }).
+        otherwise({
+        redirectTo: '/home'
+        });
+        }]);
+
+        app.controller("registerController", function ($scope, $http) {
+
+        $scope.registeredusers = [];
+
+        $scope.addEmail = function () {
+        console.log("here");
+        var newLogin = {
+        Email: $scope.login.email
+        };
+
+        $scope.registeredusers.push(newLogin);
+        };
+
+
+        });
+    </textarea>
+    <div>
+        <br />
+        <p>
+            The code snippet shows how a application is configured for each relative url.
+            There are different cases specified for different urls and the default case is mentioned in otherwise clause.
+            The controller registerController is defined only for the notify.html page using the attribute controller. 
+            A method addEmail() is then defined to add the emailid to the registeredusers array and to display on the table below.
+        </p>
+    </div>
+
+    <h3 class="black">References</h3>
+    <div class="content">
+        <p><a href="https://plus.google.com/u/0/+JoseAnnunziato/posts" target="_blank">Professor Jose's classes</a></p>
+        <p><a href="http://getbootstrap.com" target="_blank">BootStrap format</a></p>
+
+    </div>
+
+    <footer id="source">
+        <h3 class="black">Source Code</h3>
+        <p><a href="../../fileview/Default.aspx?~/experiments/angular-routing/002.html" target="_blank">html file</a></p>
+        <p><a href="../../fileview/Default.aspx?~/experiments/angular-routing/002.js" target="_blank">Script file</a></p>
+    </footer>
+</div>

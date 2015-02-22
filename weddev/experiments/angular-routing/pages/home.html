@@ -1,0 +1,66 @@
+﻿<h2 style="color:steelblue;font-weight:bold;margin-top:50px">Home</h2>
+
+<img src="c.jpg" height="400" width="800" id="img1" style="margin-bottom:50px" />
+
+<script>
+    $("#img1").slideUp(3000).slideDown(5000);
+</script>
+
+<div class="col-md-10 well" style="margin:50px;margin-top:0px">
+
+    <div>
+        <h3 class="black">Experiments</h3>
+    </div>
+    <div class="content">
+
+        <p>An application with multiple navigations at the top using the angular routing concept</p>
+        <p>
+            In this experiment, I experimented with the concept of angular-routing by creating 3 seperate files about.html, home.html and contacts.html.
+            <br />
+            The pages are then linked with the routing and shown in the container of the main page using ng-view attribute, rather than just creating the hyperlinks
+        </p>
+
+    </div>
+    <h3 class="black">Code Snippet</h3>
+    <textarea style="width:300pt;height:200pt">
+        var app = angular.module("FirstRoutingApp", ['ngRoute']);
+
+        app.config(['$routeProvider',
+        function ($routeProvider) {
+        $routeProvider.
+        when('/home', {
+        templateUrl: 'pages/home.html',
+        }).
+        when('/about', {
+        templateUrl: 'pages/about.html'
+        }).
+        when('/contacts', {
+        templateUrl: 'pages/contacts.html'
+        }).
+        otherwise({
+        redirectTo: '/home'
+        });
+        }]);
+    </textarea>
+    <div>
+        <br />
+        <p>
+            The code snippet shows how a application is configured for each relative url.
+            there are different cases specified for different urls and the default case is mentioned in otherwise clause.
+        </p>
+    </div>
+
+    <h3 class="black">References</h3>
+    <div class="content">
+        <p><a href="https://plus.google.com/u/0/+JoseAnnunziato/posts" target="_blank">Professor Jose's classes</a></p>
+        <p><a href="http://getbootstrap.com" target="_blank">BootStrap format</a></p>
+
+    </div>
+
+    <footer id="source">
+        <h3 class="black">Source Code</h3>
+        <p><a href="../../fileview/Default.aspx?~/experiments/angular-routing/001.html" target="_blank">html file</a></p>
+        <p><a href="../../fileview/Default.aspx?~/experiments/angular-routing/001.js" target="_blank">Script file</a></p>
+
+    </footer>
+</div>

@@ -1,0 +1,21 @@
+﻿<h3>Register your email for any updates about the product</h3>
+
+<div class="container">
+    <div class="col-lg-5 col-md-8">
+        <form role="form">
+            <div class="col-lg-8 col-md-8">
+                <div class="form-group">
+                    <div class="input-group">
+                        <input type="email" name="InputName" id="emailid" ng-model="login.email" placeholder="Enter your emailID" style="margin-top:5px">
+                        <button name="submit" ng-click="addEmail()" id="submit" value="Submit" class="btn btn-info pull-right" style="margin-left:5px">Notify me!</button>
+                  
+                      </div>
+                </div>
+                <table class="table table-striped table-primary" style="margin-top:30px"><tr>
+                    <th>Users Registered so far</th></tr><tr ng-repeat="user in registeredusers">
+                    <td>{{user.Email}}</td>
+                    </tr></table>
+            </div>
+        </form>
+    </div>
+</div>

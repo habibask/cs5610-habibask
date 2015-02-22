@@ -1,0 +1,106 @@
+﻿<h2 style="color:steelblue;font-weight:bold;margin:50px">Image gallery</h2>
+
+<div class="input-group col-md-6" style="margin-left:50px;margin-bottom:30px;">
+    <input type="text" class="form-control" ng-model="inputurl" placeholder="Enter the absolute path of image...">
+    <span class="input-group-btn">
+        <button class="btn btn-default" ng-click="addUrl()" type="button" id="search">Add path</button>
+    </span>
+</div>
+
+<div class="col-md-10 well" style="margin:50px;margin-top:0px">
+
+    <div>
+        <h3 class="black">Experiments</h3>
+    </div>
+    <div class="content">
+
+        <p>An application which takes the urls of the images as input and displays them in other page as gallery.
+        <p>
+            for example try with url of an image <span style="color:red;font-size:13pt">"http://animalia-life.com/data_images/cat/cat2.jpg"</span>
+            In this experiment, I worked with the concept of angular-routing and services along with the controller functions by creating 2 seperate files home.html and gallery.html.
+            <br />
+            The pages are then linked with the routing and shown in the container of the main page using ng-view attribute.
+            <br />
+            There is a function defined in the pages in the gallery tab. Whenever a user adds image url in the home tab the imae is added to gallery by making use of a img tag.
+        </p>
+
+    </div>
+    <h3 class="black">Code Snippet</h3>
+    <textarea style="width:300pt;height:200pt">
+        var app = angular.module("FirstRoutingApp", ['ngRoute']);
+
+        app.config(['$routeProvider',
+        function ($routeProvider) {
+        $routeProvider.
+        when('/home', {
+        templateUrl: 'pages/home4.html',
+        controller: 'homeController'
+        }).
+        when('/gallery', {
+        templateUrl: 'pages/gallery.html',
+        controller: 'galleryController'
+
+        }).
+        otherwise({
+        redirectTo: '/home'
+        });
+        }]);
+
+
+        app.controller("galleryController", function ($scope, WordService) {
+        $scope.urls = WordService.urlArray;
+        });
+
+
+        app.controller("homeController", function ($scope, WordService) {
+
+        $scope.addUrl = function () {
+        var url = $scope.inputurl;
+        WordService.addurl(url);
+        };
+
+        });
+
+        ---Sevice page
+        app.factory('WordService', function WordService($http) {
+
+        var urlArray = [];
+
+
+        var addurl = function (url) {
+        urlArray.push(url);
+        console.log(urlArray);
+        };
+
+        return {
+        addurl: addurl,
+        urlArray: urlArray
+        }
+
+        });
+    </textarea>
+    <div>
+        <br />
+        <p>
+            The code snippet shows how a application is configured for each relative url.
+            There are different cases specified for different urls and the default case is mentioned in otherwise clause.
+            The Service is defined using app.factory() method and then used to make calls from the galleryController. 
+            The updated array is being set to the urls array in the gallery using a method in controller.
+        </p>
+    </div>
+
+    <h3 class="black">References</h3>
+    <div class="content">
+        <p><a href="https://plus.google.com/u/0/+JoseAnnunziato/posts" target="_blank">Professor Jose's classes</a></p>
+        <p><a href="http://getbootstrap.com" target="_blank">BootStrap format</a></p>
+
+    </div>
+
+    <footer id="source">
+        <h3 class="black">Source Code</h3>
+        <p><a href="../../fileview/Default.aspx?~/experiments/angular-routing/005.html" target="_blank">html file</a></p>
+        <p><a href="../../fileview/Default.aspx?~/experiments/angular-routing/005.js" target="_blank">Script file</a></p>
+        <p><a href="../../fileview/Default.aspx?~/experiments/angular-routing/005-service.js" target="_blank">Service Script file</a></p>
+
+    </footer>
+</div>

@@ -1,0 +1,6 @@
+./../../story/whatisnext.htm?../experiments/angular-routing/  AJAX and Angular
+001.html                                 Setting up a navigation with ng-routing method
+002.html                                 Defining controller for the page in a navigation
+003.html                                 Working with angular Services
+004.html                                 Dictionary which keeps track of history
+005.html                                 Image gallery with angular
