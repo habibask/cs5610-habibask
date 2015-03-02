@@ -1,0 +1,158 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Nodejs</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <script src="../js/jquery.js"></script>
+    <script src="../js/jquery-ui.js"></script>
+    <style>
+        .black,h2{
+            color:steelblue;
+        }
+        .ref{
+            color:maroon;
+        }
+        a{
+            color:blue;
+        }
+    </style>
+</head>
+<body class="container col-md-10 col-lg-10 col-xs-10" style="margin:50px">
+    <div>
+        <div>
+            <h1 class="black heading">Experiments</h1>
+        </div>
+        <div>
+            <h3>Click on the button to navigate to the book manger application hosted on openshift</h3>
+        </div>
+        <a class="btn btn-default btn-lg" href='http://experiment1-habibanodejs.rhcloud.com/' target="_blank" >
+            <span class=" glyphicon glyphicon-star" aria-hidden="true">
+            </span> BookManager
+        </a>
+        <div>
+            <h5 style="color:red">The openshift is under manintenance until March3rd.
+            <br />To view the source code files please scroll down</h5>
+        </div>
+        <div class="content">
+
+            <p><h2>An Book Manager application with NodeJS and AngularJS</h2></p>
+            <p>By opening any page from the index, the current list of books in the server are populated before handling any event</p>
+            <h2 class="black" >Experiment-1 "search and add"</h2>
+            <p>
+                In this experiment, I worked with the module "request" and  connected to a remote API of google books to retrieve a list of 10 books
+                as per the search query of the user.
+                There is a button "Add to Server" which provides the functionality to add the retrieved books.
+                The retrieved books are then stored in the local array of books in the server and stored.
+                Made use of the app.post() method to add the array of books passed with the request object.
+            </p>
+            <h3 class="black">Code Snippet</h3>
+            <pre>app.get("/search", function (req, res) {
+    console.log("im hrere");
+    console.log(__dirname + '/files/search.html');
+    res.sendfile(__dirname + '/files/search.html');
+});</pre>
+            <pre>app.post('/addsearchtoserver', function (req, res) {
+    console.log("inside addtoserver");
+    var books = req.body;
+    for (var i = 0; i < books.length; i++) {
+        bookonserver.push(books[i]);
+    }
+    console.log(bookonserver);
+    res.send(bookonserver);
+});
+        </pre>
+            <hr />
+            <h2>Experiment-2 "Add custom entry"</h2>
+            <p>
+                In this experiment, I worked with the module "body-parser" to convert the json into object to store in the array.
+                There are input fields in the page to add new entry to the local array of the server.
+                There is a button "+" which provides this functionality to add the entered books.
+                The retrieved books are then stored in the local array of books in the server and stored.
+            </p>
+            <h3 class="black">Code Snippet</h3>
+            <pre>
+            app.get('/add', function (req, res) {
+    res.sendfile(__dirname + '/files/add.html');
+});
+</pre>
+<pre>app.post('/addbooktoserver', function (req, res) {
+    console.log("inside addtoserver");
+    var book = req.body;
+    bookonserver.push(book);
+    res.send(bookonserver);
+});
+</pre>
+            <hr />
+            <h2>Experiment-3 "Update"</h2>
+            <p>
+                In this experiment, I worked with the functionality "put" that is used to alter any existing data in the server from the client.
+                when we click pencil button on the page, the entry is editable in the input fields in the top
+                There is a button "ok" which provides the functionality to update the latest books.
+            </p>
+            <hr />
+            <h3 class="black">Code Snippet</h3>
+            <pre>
+            app.get('/update', function (req, res) {
+    res.sendfile(__dirname + '/files/update.html');
+});
+</pre>
+<pre>app.put('/updateinserver/:index', function (req, res) {
+    console.log("inside updateinserver");
+    var book = req.body;
+    var index = req.params.index;
+    bookonserver[index] = book;
+    res.send(bookonserver);
+});
+</pre>
+            <h2>Experiment-4 "Delete"</h2>
+            <p>
+                In this experiment, I worked with the functionality "put" that is used to alter any existing data in the server from the client.
+                when we click pencil button on the page, the entry is editable in the input fields in the top
+                There is a button "ok" which provides the functionality to update the latest books.
+            </p>
+            <h3 class="black">Code Snippet</h3>
+            <pre>
+            app.get('/delete', function (req, res) {
+    res.sendfile(__dirname + '/files/delete.html');
+});
+</pre>
+<pre>app.delete('/deletefromserver/:index', function (req, res) {
+    console.log("inside deletefromserver");
+    var index = req.params.index;
+    
+    bookonserver.splice(index, 1)
+    res.send(bookonserver);
+});
+</pre>
+            <hr />
+            <h2>Experiment-5 "Setting up ruby,git and openshift to host the website"</h2>
+            Installing the right versions og ruby and git and openshift took quite long time because of many issues which we could resolve only after much researching.
+            Then created a clone of the project created in the openshift and moved all the contents of the local project to openshift.
+            Then added,commited and pushed the updates to the remoe project.
+            <hr />
+
+        </div>
+        <h3 class="ref">References</h3>
+        <div class="content">
+            <p><a href="https://plus.google.com/u/0/+JoseAnnunziato/posts" target="_blank">Professor Jose's classes</a></p>
+            <p><a href="http://getbootstrap.com" target="_blank">BootStrap format</a></p>
+
+        </div>
+
+        <footer id="source">
+            <h3 class="ref">Source Code</h3>
+            <p><a href="../../fileview/Default.aspx?~/experiments/nodejs/experiment1/server.js" target="_blank">Server script file</a></p>
+            <p><a href="../../fileview/Default.aspx?~/experiments/nodejs/experiment1/files/index.html" target="_blank"> index page</a></p>
+            <p><a href="../../fileview/Default.aspx?~/experiments/nodejs/experiment1/files/search.html" target="_blank"> Search HTML page</a></p>
+            <p><a href="../../fileview/Default.aspx?~/experiments/nodejs/experiment1/files/add.html" target="_blank"> Add HTML page</a></p>
+            <p><a href="../../fileview/Default.aspx?~/experiments/nodejs/experiment1/files/update.html" target="_blank"> Update HTML page</a></p>
+            <p><a href="../../fileview/Default.aspx?~/experiments/nodejs/experiment1/files/delete.html" target="_blank"> Delete HTML page</a></p>
+            <p><a href="../../fileview/Default.aspx?~/experiments/nodejs/experiment1/files/js/searchjs.js" target="_blank"> Search js page</a></p>
+            <p><a href="../../fileview/Default.aspx?~/experiments/nodejs/experiment1/files/js/add.js" target="_blank"> Add js page</a></p>
+            <p><a href="../../fileview/Default.aspx?~/experiments/nodejs/experiment1/files/js/update.js" target="_blank"> Update js page</a></p>
+            <p><a href="../../fileview/Default.aspx?~/experiments/nodejs/experiment1/files/js/delete.js" target="_blank"> Delete js page</a></p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -4,3 +4,4 @@
 ../../story/index.htm?../experiments/jquery/story.txt             Week3 - jQuery and JavaScript
 ../../story/index.htm?../experiments/ajax-angular/story.txt       Week4 - AJAX and Angular.js
 ../../story/index.htm?../experiments/angular-routing/story.txt    Week5 - Angular routing
+../../story/index.htm?../experiments/nodejs/story.txt             Week6 - NodeJS
