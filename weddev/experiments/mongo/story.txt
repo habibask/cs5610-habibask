@@ -1,0 +1,6 @@
+./../../story/whatisnext.htm?../experiments/mongo/  Nodejs experiments
+mongo1.html                 Create Schema and Add employees in the server database
+mongo2.html                 Delete from the employees table in the server database
+mongo3.html                 Update Employee info in the server database
+mongo4.html                 Querying the database and fetching the results
+mongo5.html                 Auto-incrementing sequence field

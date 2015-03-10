@@ -1,0 +1,144 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>MongoDB</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <script src="../js/jquery.js"></script>
+    <script src="../js/jquery-ui.js"></script>
+    <style>
+        .black, h2 {
+            color: steelblue;
+        }
+
+        .ref {
+            color: maroon;
+        }
+
+        a {
+            color: blue;
+        }
+    </style>
+</head>
+<body class="container col-md-10 col-lg-10 col-xs-10" style="margin:50px">
+    <div>
+        <div>
+            <h1 class="black heading">Updating data in MongoDB and NodeJS</h1>
+        </div>
+        <div>
+            <h3>Click on the button to navigate to the Employee application hosted on openshift</h3>
+        </div>
+        <a class="btn btn-default btn-lg" href='http://mongodbexp1-habibanodejs.rhcloud.com/upd' target="_blank">
+            <span class=" glyphicon glyphicon-star" aria-hidden="true">
+            </span> Update Employee Details
+        </a>
+        <div class="content">
+
+            <p><h2>Employee Database with NodeJS, MongoDB and AngularJS</h2></p>
+            <p>When the index page is populated, the current list of employees in the database are populated before adding new employees</p>
+            <h2 class="black">Experiment</h2>
+            <p>
+                In this experiment, I worked with the mongodb along with nodejs and angularjs.
+                There is a button "Update Employee" which provides the functionality to Update the selected employee.
+                The  employee is update in the database in the server and stored.
+                Made use of the app.put() method to update from the database.
+            </p>
+            <h3 class="black">Clientside Code Snippet</h3>
+            <pre>var app = angular.module("EmployeeApp", []);
+app.controller("EmployeeController", function ($scope, $http) {
+    var employees = [];
+    $http.get("/getinfo/")
+        .success(function (response) {
+            console.log("employees retrieved");
+            console.log(response);
+            $scope.employees = response;
+            employees = response;
+            return $scope.employees;
+        }
+        );
+                                   $scope.updateEmployee = function (employee) {
+        console.log("updating the database")
+        console.log(employee._id);
+        $http.put("/updateEmployee/",employee).
+        success(function (response) {
+            console.log("updated to server")
+            $scope.employees = response;
+        });
+    };
+    }});</pre><p>
+                This is the client side angular script. the functions are called from the HTML page.
+            these functions make http calls to the server script using $http.get and $http.put methods
+            </p>
+            <h3 class="black">Serverside Code Snippet</h3>
+            <pre>var express = require('express');
+var mongoose = require('mongoose');
+var bodyparser = require('body-parser');
+var app = express();
+app.use(bodyparser.json());
+app.use(bodyparser.urlencoded({ extended: true }));
+var connectionstring = process.env.OPENSHIFT_MONGODB_DB_URL || 'mongodb://localhost/test';
+console.log(connectionstring);
+mongoose.connect(connectionstring);
+app.use(express.static(__dirname + '/files'));
+var EmployeeSchema = new mongoose.Schema({
+    id: Number,
+    fname: String,
+    lname:String,
+    role: String
+}, { collection: 'EmployeeModel' });
+var EmployeeModel = mongoose.model("EmployeeModel", EmployeeSchema);
+                                app.put('/updateEmployee', function (req, res) {
+    console.log(req.body);
+    var idtodelete = req.body._id;
+    console.log(mongoose.Types.ObjectId(idtodelete));
+    idtodelete = mongoose.Types.ObjectId(idtodelete);
+    console.log("Updated id=" + idtodelete);
+    EmployeeModel.findOneAndUpdate({ _id: idtodelete },
+    {$set: {fname: req.body.fname,
+            lname: req.body.lname,
+            role: req.body.role
+        }
+    }, function (err, result) { console.log(result);});
+    EmployeeModel.find({ _id: idtodelete }, function (err, data) {
+        console.log(data);
+    });
+});
+app.get('/getinfo', function (req, res) {
+    EmployeeModel.find(function (err, data) {
+        res.json(data);
+    })
+});
+app.get('/update', function (req, res) {
+    res.sendfile(__dirname + '/files/update.html');
+});
+//app.listen(3000);
+var ip = process.env.OPENSHIFT_NODEJS_IP ||'127.0.0.1';
+var port = process.env.OPENSHIFT_NODEJS_PORT || 8080;
+app.listen(port, ip, function () {
+    console.log('%s: Node server started on %s:%d ...',
+                Date(Date.now()), ip, port)
+});
+
+    }});</pre><p>
+                This is the server side expressJS script. there are app.get and app.put methods
+            to retrieve and delete from the database respectively.At the begin, schema is created using new mongoose.schema
+            every employee is delete using findoneandupdate() method.
+            </p>
+        </div>
+        <h3 class="ref">References</h3>
+        <div class="content">
+            <p><a href="https://plus.google.com/u/0/+JoseAnnunziato/posts" target="_blank">Professor Jose's classes</a></p>
+            <p><a href="http://getbootstrap.com" target="_blank">BootStrap format</a></p>
+
+        </div>
+
+        <footer id="source">
+            <h3 class="ref">Source Code</h3>
+            <p><a href="../../fileview/Default.aspx?~/experiments/mongo/mongodb/server.js" target="_blank">Server script file</a></p>
+            <p><a href="../../fileview/Default.aspx?~/experiments/mongo/mongodb/files/uindex.html" target="_blank"> index page</a></p>
+            <p><a href="../../fileview/Default.aspx?~/experiments/mongo/mongodb/files/update.html" target="_blank"> Update HTML page</a></p>
+            <p><a href="../../fileview/Default.aspx?~/experiments/mongo/mongodb/files/js/addjs.js" target="_blank"> client script page</a></p>
+        </footer>
+    </div>
+</body>
+</html>
