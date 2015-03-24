@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="../jquery.js"></script>
+    <script src="../jquery-ui.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script src="hover.js"></script>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js"></script>
+</head>
+<body>
+    <h3>Hovering over elements to display the hidden div element with transperancy</h3>
+    <div style="display:inline-block;margin:20px">
+        <div style="display:inline-block">
+            <img id="d1" src="car.jpg" width="300" height="300" />
+            <div class="contenthover">
+                <h4>Going alone, want a company and also reduce expenses at the same time?</h4>
+                <p>Just register your ride and let everybody know!!</p>
+                <p><a href="#" class="mybutton">Add your ride</a></p>
+            </div>
+        </div>
+        <div style="display:inline-block">
+            <img id="d2" src="looking.jpg" width="300" height="300" />
+            <div class="contenthover">
+                <h4>Want to reach somewhere and do not have a source?</h4>
+                <h4>Cannot afford a taxi?</h4>
+                <p>Look for the various affordable car share options and choose your ride!!</p>
+                <p><a href="#" class="mybutton">Find your ride</a></p>
+            </div>
+        </div>
+    </div>
+    <div class="content" style="margin:20px;">
+
+        <div>
+            <h2 class="">Experiments</h2>
+        </div>
+        <div style="width:800px">
+
+            <p>
+                Worked with a third party open source script that provides the method contenthover()
+                with which we can overlay one element over other on mouse over event and also decide on the animation effect
+                and opacity.
+
+        </div>
+        <h3 class="">Code Snippet</h3>
+        <pre style="">
+                   $(function () {
+    $('#d1').contenthover({
+        overlay_background: '#000',
+        overlay_opacity: 0.8,
+        effect: 'slide',
+        slide_speed: 500,
+        slide_direction: 'left'
+    });
+    $('#d2').contenthover({
+        effect: 'slide',
+        slide_speed: 300,
+        overlay_background: '#000',
+        overlay_opacity: 0.8
+    });
+});
+    </pre>
+        <div>
+            <br />
+            <p>
+                The code snippet shows how the calls to the contenthover are made and the div element in the class contenthover is used
+                to overlay on the element with which the event is triggered.
+            </p>
+        </div>
+
+        <h3 class="black">References</h3>
+        <div class="content">
+            <p><a href="http://www.backslash.gr/content/blog/webdevelopment/9-contenthover-jquery-plugin" target="_blank">Hover functionality</a></p>
+        </div>
+
+        <footer id="source">
+            <h3 class="black">Source Code</h3>
+            <p><a href="../../..//fileview/Default.aspx?~/experiments/project/showElementOnHover/page.html" target="_blank">HTML file</a></p>
+            <p><a href="../../../fileview/Default.aspx?~/experiments/project/showElementOnHover/script.js" target="_blank">Script file</a></p>
+            <p><a href="../../../fileview/Default.aspx?~/experiments/project/showElementOnHover/style.css" target="_blank">Style sheet</a></p>
+        </footer>
+    </div>
+</body>
+</html>

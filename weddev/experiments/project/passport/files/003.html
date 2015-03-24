@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+   
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script src="js/angular.min.js"></script>
+    <script src="js/angular-route.min.js"></script>
+    <script src="js/003.js"></script>
+    <script src="js/003-service.js"></script>
+
+</head>
+<body ng-app="FirstRoutingApp" ng-controller="ContainerController" style="background-color:black;color:white">
+    <div class="container" style="background-color:black">
+        <ul class="nav nav-pills">
+            <li id="" class="home active"><a href="#/home">Home</a></li>
+            <li id="profile" ng-show="currentUser" class="profile"><a href="#/profile">Profile</a></li>
+            <li id="login" ng-show="!currentUser" class="login"><a href="#/login">Login</a></li>
+            <li class="register" ng-show="!currentUser"><a href="#/register">Register</a></li>
+            <li id="login" ng-show="currentUser" ng-click="logout()" class="logout"><a href="#/logout">LogOut</a></li>
+        </ul>
+        <div ng-view style="background-color:black"></div>
+    </div>
+</body>
+</html>

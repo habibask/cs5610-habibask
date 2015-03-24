@@ -1,0 +1,43 @@
+﻿<p><h2>An Employee application with MongoDB, NodeJS and AngularJS</h2></p>
+<h2 class="black">Experiment-1 "User authentication with PassportJS"</h2>
+<p>
+    In this experiment, the userlogin page is available in the login tab of the angular routing framework.
+    When the information is entered, the ng-click event is triggered which passes all the information to the script file 003.js
+    the script calls the method in the LoginService application which in turn makes a http call to the server.js
+    <br />
+    The server receives the user information and makes a local authentication call to verify.
+    <br />
+    In the local authentication I have included a find to the mongo db LoginDBModel and compared the login.
+    On successful comparison the user info is returned back as a sign of success.
+    Then the page in the url is changed to point to profile page.
+    When a user logs in, only the profile and the logout tab will be available.
+</p>
+<h2>Experiment-2 "User Registration employee"</h2>
+<p>
+    The server receives the user information and inserts into the database.
+    <br />
+    If the insertion is successful, the user is directed to the profile page.
+    <br />
+    When the user is logged in we set the currentUser to the user information and use it to bind to the menu items using ng-show directive.
+    This makes the selected menu items to show only when the user is not set to null or vice versa.
+    When the user is logged out, the session is destroyed using the destroy() method.
+</p>
+<h2>Experiment-3 "Map directions"</h2>
+<p>
+    Worked with Google Map Apis to get the direction between source and the destination.
+    First a static location in the map(in this experiment shown as Boston).
+    Then based on the inputs from the user about the source and destination and the mode of transport, the directions
+    are retrieved and shown in the div container.
+</p>
+<h2>Experiment-4 "Carousel for Main Page"</h2>
+<p>
+    A Carousel with images and the corresponding text that can be used in the home page of the project
+    In this experiment, I worked with the simple carousel available with botstrap and customized it with images and text relevant to project
+
+</p>
+<h2>Experiment-5 "Jquery overlay effects"</h2>
+           Worked with a open source script that provides the method contenthover()
+                with which we can overlay one element over other on mouse over event and also decide on the animation effect
+                and opacity.
+
+<hr />

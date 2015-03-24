@@ -1,0 +1,137 @@
+﻿<h2 style="color:steelblue;font-weight:bold;margin:50px">Home</h2>
+
+<div class="col-md-10 well" style="margin:50px;margin-top:0px">
+
+    <div>
+        <h3 class="black">Experiments</h3>
+    </div>
+    <div class="content">
+
+        <p>An application which demonstrates the use of angular Services which can be shared among various pages within angular routing.
+                   
+        <p>
+            In this experiment, I worked with the concept of angular-routing and services along with the controller functions by creating 4 seperate files about.html, home.html,register.html and login.html.
+            <br />
+            The pages are then linked with the routing and shown in the container of the main page using ng-view attribute.
+            <br />
+            There are functions defined in the pages in the register and login tabs. Whenever a user registers himself in the register tab the user information is stored in the array of the Service and then used when he tries to login in the login tab.
+        </p>
+
+    </div>
+    <h3 class="black">Code Snippet</h3>
+    <textarea style="width:300pt;height:200pt">
+        var app = angular.module("FirstRoutingApp", ['ngRoute']);
+
+        app.config(['$routeProvider',
+        function ($routeProvider) {
+        $routeProvider.
+        when('/home', {
+        templateUrl: 'pages/maincarousel/page.html',
+        }).
+        when('/about', {
+        templateUrl: 'pages/about.html',
+        }).
+        when('/login', {
+        templateUrl: 'pages/login.html',
+        controller: 'registerController'
+        }).
+        when('/register', {
+        templateUrl: 'pages/register.html',
+        controller: 'registerController'
+        }).
+        otherwise({
+        redirectTo: '/home'
+        });
+        }]);
+
+        app.controller("registerController", function ($scope,$sce, $http,LoginService) {
+        $scope.addInfo = function () {
+        var newLogin = {
+        Name: $scope.login.name,
+        username: $scope.login.username,
+        password: $scope.login.password,
+        message: $scope.login.message
+        };
+
+        LoginService.add(newLogin);
+        };
+
+        $scope.checkInfo = function () {
+        console.log($scope.login.usernameLogin);
+
+        LoginService.login($scope.login.usernameLogin, $scope.login.passwordlogin, function (uname, message) {
+        $scope.userinfo = $sce.trustAsHtml("<h3>
+            Hi " + uname + "<h3>
+                <h4>" + "Your message is - <br>" + message + "</h4>");
+
+                });
+                };
+
+
+                });
+
+        ---Sevice page
+                                app.factory('LoginService', function LoginService($http) {
+
+                                var loginArray = [{
+                                Name:"habiba",
+                                username: "x",
+                                password: "x",
+                                message: "hello"}];
+
+                                var checkInfo = function (username,password,callback) {
+
+                                console.log(loginArray);
+                                console.log(username);
+                                console.log(password);
+
+                                for(var value in loginArray) {
+                                var obj = loginArray[value];
+                                uname = obj.username;
+                                passwd = obj.password;
+                                if (uname == username && passwd == password) {
+                                callback(obj.username, obj.message);
+                                } else {
+                                callback("Visitor", "Username and password do not match. You need to sign up in Register tab if not already registered.");
+
+                                }
+                                }
+                                };
+
+                                var addInfo = function (newLogin) {
+
+                                loginArray.push(newLogin);
+                                console.log(loginArray);
+                                };
+
+                                return {
+                                login: checkInfo,
+                                add:addInfo
+                                }
+
+                                });
+    </textarea>
+    <div>
+        <br />
+        <p>
+            The code snippet shows how a application is configured for each relative url.
+            There are different cases specified for different urls and the default case is mentioned in otherwise clause.
+            The Service is defined usinf app.factory() method and then used to make calls from the registerController. The response from the method is handled using a callback function.
+        </p>
+    </div>
+
+    <h3 class="black">References</h3>
+    <div class="content">
+        <p><a href="https://plus.google.com/u/0/+JoseAnnunziato/posts" target="_blank">Professor Jose's classes</a></p>
+        <p><a href="http://getbootstrap.com" target="_blank">BootStrap format</a></p>
+
+    </div>
+
+    <footer id="source">
+        <h3 class="black">Source Code</h3>
+        <p><a href="../../fileview/Default.aspx?~/experiments/angular-routing/003.html" target="_blank">html file</a></p>
+        <p><a href="../../fileview/Default.aspx?~/experiments/angular-routing/003.js" target="_blank">Script file</a></p>
+        <p><a href="../../fileview/Default.aspx?~/experiments/angular-routing/003-service.js" target="_blank">Service Script file</a></p>
+
+    </footer>
+</div>

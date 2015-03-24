@@ -1,0 +1,165 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Login Application with Mongoose and PassportJS</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <script src="../js/jquery.js"></script>
+    <script src="../js/jquery-ui.js"></script>
+    <style>
+        .black, h2 {
+            color: steelblue;
+        }
+
+        .ref {
+            color: maroon;
+        }
+
+        a {
+            color: blue;
+        }
+    </style>
+</head>
+<body class="container col-md-10 col-lg-10 col-xs-10" style="margin:50px">
+    <div>
+        <div>
+            <h1 class="black heading">Authenticating a user login using passportJS</h1>
+        </div>
+        <div>
+            <h3>Click on the button to navigate to the Login application Page hosted on openshift</h3>
+        </div>
+        <a class="btn btn-default btn-lg" href='http://mongodbexp1-habibanodejs.rhcloud.com/loginapp#/login' target="_blank">
+            <span class=" glyphicon glyphicon-star" aria-hidden="true">
+            </span> User Authentication
+        </a>
+        <div class="content">
+
+            <p><h2>Passport Application using mongo database, cookies and sessions</h2></p>
+            <h3>Applications Used</h3>
+            <ul>
+                <li>AngularJS routing</li>
+                <li>AngularJS Services</li>
+                <li>ExpressJS</li>
+                <li>Mongoose</li>
+                <li>PassportJS</li>
+            </ul>
+            <h2 class="black">Experiment</h2>
+
+            <p>
+                In this experiment, the userlogin page is available in the login tab of the angular routing framework.
+                When the information is entered, the ng-click event is triggered which passes all the information to the script file 003.js
+                the script calls the method in the LoginService application which in turn makes a http call to the server.js
+                <br />
+                The server receives the user information and makes a local authentication call to verify.
+                <br />
+                In the local authentication I have included a find to the mongo db LoginDBModel and compared the login.
+                On successful comparison the user info is returned back as a sign of success.
+                Then the page in the url is changed to point to profile page.
+                When a user logs in, only the profile and the logout tab will be available.
+            </p>
+            <h3 class="black">Clientside Code Snippet</h3>
+            <pre>var app = angular.module("FirstRoutingApp", ['ngRoute']);
+app.config(['$routeProvider',
+  function ($routeProvider) {
+      $routeProvider.
+          when('/home', {
+              templateUrl: 'pages/maincarousel/page.html'
+          }).
+          when('/profile', {
+              templateUrl: 'pages/profile.html',
+              controller: 'registerController',
+              resolve: { loggedin: checkLoggedin }
+          }).
+        when('/login', {
+            templateUrl: 'pages/login.html',
+            controller: 'registerController'
+        }).
+        when('/register', {
+            templateUrl: 'pages/register.html',
+            controller: 'registerController'
+        }).
+        otherwise({
+            redirectTo: '/home'
+        });
+  }]);
+app.controller("registerController", function ($scope, $sce, $http, LoginService) {
+    $scope.currentUser = LoginService.currentUser;
+    $scope.login = function (user) {
+        console.log(user);
+        LoginService.login(user);
+    }
+</pre><h4>Service script to make HTTP call</h4>
+            <pre>app.factory('LoginService', function LoginService($http,$location) {
+    var currentUser = null;
+    var getCurrentUser = function () {
+        return currentUser;
+    };
+    var checkInfo = function (user,callback) {
+        $http.post("/login", user)
+        .success(function (response) {
+            console.log("service current user " + response);
+            currentUser = response;
+            console.log(currentUser);
+            ($location.url("/profile"));
+        });
+    };
+                  return {
+        login: checkInfo,
+        getCurrentUser: getCurrentUser
+    }
+    
+ });</pre><p>
+                This is the client side angular and service script. The functions are called from the HTML page.
+                these functions make http calls to the server script using $http.post method to verify the credentials.
+            </p>
+            <h3 class="black">Serverside Code Snippet</h3>
+            <pre>
+passport.use(new LocalStrategy(
+    function (username, password, done) {
+      LoginDBModel.findOne({ username: username, password: password }, function (err, user) {
+            if (user) {
+                return done(null, user);
+            } else {
+                return done(null, false, { message: 'Unable to login' });
+            }
+        });
+    }));
+passport.serializeUser(function (user, done) {
+    done(null, user);
+});
+passport.deserializeUser(function (user, done) {
+    done(null, user);
+});
+var auth = function (req, res, next) {
+    if (!(req.isAuthenticated())) {
+        res.send(401);
+    } else {
+        next();
+    }
+};
+app.post('/login',passport.authenticate('local'), function (req, res) {
+    var user = req.user;
+    res.json(user);
+});</pre><p>
+                This is the server side expressJS script. there are passport.use is used to define the local authentication method.
+                And this is used in the app.post method using passport.authenticate()
+            </p>
+        </div>
+        <h3 class="ref">References</h3>
+        <div class="content">
+            <p><a href="https://plus.google.com/u/0/+JoseAnnunziato/posts" target="_blank">Professor Jose's classes</a></p>
+            <p><a href="http://getbootstrap.com" target="_blank">BootStrap format</a></p>
+
+        </div>
+        <footer id="source">
+            <h3 class="ref">Source Code</h3>
+            <p><a href="../../../fileview/Default.aspx?~/experiments/project/passport/server.js" target="_blank">Server script file</a></p>
+            <p><a href="../../../fileview/Default.aspx?~/experiments/project/passport/files/003.html" target="_blank"> Home page</a></p>
+            <p><a href="../../../fileview/Default.aspx?~/experiments/project/passport/files/js/003.js" target="_blank"> Routing Script page</a></p>
+            <p><a href="../../../fileview/Default.aspx?~/experiments/project/passport/files/js/003-service.js" target="_blank"> Service page</a></p>
+            <p><a href="../../../fileview/Default.aspx?~/experiments/project/passport/files/pages/login.html" target="_blank"> Login HTML page</a></p>
+            <p><a href="../../../fileview/Default.aspx?~/experiments/project/passport/files/pages/home2.html" target="_blank"> Home Page</a></p>
+        </footer>
+    </div>
+</body>
+</html>

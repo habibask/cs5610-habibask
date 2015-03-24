@@ -1,0 +1,39 @@
+﻿<h3 style="color:steelblue;font-weight:bold">Register me</h3>
+
+<div class="container">
+    <div class="col-lg-5 col-md-8">
+        <form role="form">
+            <div class="col-lg-6 col-md-8">
+                <div class="form-group">
+                    <label for="InputEmail">Enter Name </label>
+                    <div class="input-group">
+                        <input class="form-control" ng-model="user.name" name="username" placeholder="Username" required>
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="InputEmail">Choose Username </label>
+                    <div class="input-group">
+                        <input class="form-control" ng-model="user.username" name="username" placeholder="Username" required>
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Enter Password</label>
+                    <div class="input-group">
+                        <input class="form-control" ng-model="user.password" name="password" placeholder="Password" required>
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="InputMessage">Enter Any Message</label>
+                    <div class="input-group">
+                        <textarea name="InputMessage" ng-model="user.message" style="width:350px" class="form-control" rows="5"></textarea>
+                    </div>
+                </div>
+                <button name="submit" ng-click="addInfo(user)" id="submit" value="Submit" class="btn btn-info pull-right">Submit</button>
+                <table><tr ng-repeat="login in loginarray"></tr></table>
+            </div>
+        </form>
+    </div>
+</div>

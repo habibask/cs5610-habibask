@@ -1,0 +1,173 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Register Application with Mongoose and PassportJS</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <script src="../js/jquery.js"></script>
+    <script src="../js/jquery-ui.js"></script>
+    <style>
+        .black, h2 {
+            color: steelblue;
+        }
+
+        .ref {
+            color: maroon;
+        }
+
+        a {
+            color: blue;
+        }
+    </style>
+</head>
+<body class="container col-md-10 col-lg-10 col-xs-10" style="margin:50px">
+    <div>
+        <div>
+            <h1 class="black heading">Registering a user, Logging out and managing the menu bar using mongoose and passportJS</h1>
+        </div>
+        <div>
+            <h3>Click on the button to navigate to the Register Page hosted on openshift</h3>
+        </div>
+        <a class="btn btn-default btn-lg" href='http://mongodbexp1-habibanodejs.rhcloud.com/loginapp#/register' target="_blank">
+            <span class=" glyphicon glyphicon-star" aria-hidden="true">
+            </span> User Registration
+        </a>
+        <div class="content">
+
+            <p><h2>Passport Application using mongo database, cookies and sessions</h2></p>
+            <h3>Applications Used</h3>
+            <ul>
+                <li>AngularJS routing</li>
+                <li>AngularJS Services</li>
+                <li>ExpressJS</li>
+                <li>Mongoose</li>
+                <li>PassportJS</li>
+            </ul>
+            <h2 class="black">Experiment</h2>
+
+            <p>
+                In this experiment, the new user is registered in the register tab of the angular routing framework.
+                When the information is entered, the ng-click event is triggered which passes all the information to the script file 003.js
+                the script calls the method in the LoginService application which in turn makes a http call to the server.js
+                <br />
+                The server receives the user information and inserts into the database.
+                <br />
+                If the insertion is successful, the user is directed to the profile page.
+                <br />
+                When the user is logged in we set the currentUser to the user information and use it to bind to the menu items using ng-show directive.
+                This makes the selected menu items to show only when the user is not set to null or vice versa.
+                When the user is logged out, the session is destroyed using the destroy() method.
+            </p>
+            <h3 class="black">Clientside Code Snippet</h3>
+            <pre>var app = angular.module("FirstRoutingApp", ['ngRoute']);
+app.config(['$routeProvider',
+  function ($routeProvider) {
+      $routeProvider.
+          when('/home', {
+              templateUrl: 'pages/maincarousel/page.html'
+          }).
+          when('/profile', {
+              templateUrl: 'pages/profile.html',
+              controller: 'registerController',
+              resolve: { loggedin: checkLoggedin }
+          }).
+        when('/login', {
+            templateUrl: 'pages/login.html',
+            controller: 'registerController'
+        }).
+        when('/register', {
+            templateUrl: 'pages/register.html',
+            controller: 'registerController'
+        }).
+        otherwise({
+            redirectTo: '/home'
+        });
+  }]);
+var checkLoggedin = function ($q, $timeout, $http, $location) {
+    var deferred = $q.defer();
+    $http.get('/loggedin').success(function (user) {
+        if (user != '0') {
+            console.log("logged in");
+            deferred.resolve();
+        } else {
+            console.log("Not Found");
+            deferred.reject();
+            $location.url("/login");
+        }
+    });
+};
+app.controller("registerController", function ($scope, $sce, $http, LoginService) {
+    $scope.currentUser = LoginService.currentUser;
+                   $scope.addInfo = function (user) {
+        LoginService.add(user);
+    };
+}
+</pre><h4>Service script to make HTTP call</h4>
+            <pre>
+                 var addInfo = function (user) {
+        console.log(user);
+        $http.post("/register", user)
+        .success(function (res) {
+            console.log("inside Service add" + res.username);
+            console.log( res);
+            checkInfo(res);
+        });
+    };
+   var logout = function () {
+        currentUser = null;
+        $http.post("/logout", currentUser)
+        .success(function (res) {
+            $location.url("/login");
+        });
+    };</pre><p>
+                This is the client side angular and service script. The functions are called from the HTML page.
+                these functions make http calls to the server script using $http.post method to add the credentials.
+            </p>
+            <h3 class="black">Serverside Code Snippet</h3>
+            <pre>                
+app.post("/register", function (req, res) {
+    console.log(req.body);
+    var newUser = new LoginDBModel({ 'username': req.body.username, 'password': req.body.password });
+    newUser.save(function (err, user) {
+        LoginDBModel.find({username:req.body.username},function (err, data) {
+            console.log(data);
+            res.json(data[0]);
+        });
+       
+    });
+});
+app.get('/loginapp', function (req, res) {
+    res.sendfile(__dirname + '/files/003.html');
+});
+app.get('/rest/user', auth, function (req, res) {
+    res.json(PassportAuthenticationUser);
+});
+app.get("/loggedin", function (req, res) {
+    res.send(req.isAuthenticated() ? req.user : '0');
+});
+app.post("/logout", function (req, res) {
+    req.session.destroy();
+    res.send(200);
+});</pre><p>
+                This is the server side expressJS script. there are method calls like isauthenticated()  to check whether the user is currently logged in or not.
+
+            </p>
+        </div>
+        <h3 class="ref">References</h3>
+        <div class="content">
+            <p><a href="https://plus.google.com/u/0/+JoseAnnunziato/posts" target="_blank">Professor Jose's classes</a></p>
+            <p><a href="http://getbootstrap.com" target="_blank">BootStrap format</a></p>
+
+        </div>
+        <footer id="source">
+            <h3 class="ref">Source Code</h3>
+            <p><a href="../../../fileview/Default.aspx?~/experiments/project/passport/server.js" target="_blank">Server script file</a></p>
+            <p><a href="../../../fileview/Default.aspx?~/experiments/project/passport/files/003.html" target="_blank"> Home page</a></p>
+            <p><a href="../../../fileview/Default.aspx?~/experiments/project/passport/files/js/003.js" target="_blank"> Routing Script page</a></p>
+            <p><a href="../../../fileview/Default.aspx?~/experiments/project/passport/files/js/003-service.js" target="_blank"> Service page</a></p>
+            <p><a href="../../../fileview/Default.aspx?~/experiments/project/passport/files/pages/register.html" target="_blank"> Register HTML page</a></p>
+            <p><a href="../../../fileview/Default.aspx?~/experiments/project/passport/files/pages/home2.html" target="_blank"> Home Page</a></p>
+        </footer>
+    </div>
+</body>
+</html>
