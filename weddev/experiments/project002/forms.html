@@ -1,0 +1,188 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Dynamic forms for Login and Registration</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <script src="../js/jquery.js"></script>
+    <script src="../js/jquery-ui.js"></script>
+
+    <script src="../js/angular.min.js"></script>
+    <script src="../js/angular-route.min.js"></script>
+    <script src="ngshow.js"></script>
+    <link href="carpool.css" rel="stylesheet" />
+</head>
+<body ng-app="PasswordApp" ng-controller="PasswordAppController" class="container">
+    <h3>Styling forms for Login and Registration</h3>
+    <div class="well col-lg-7 col-md-7 col-sm-8-7">
+        <div class="formcss">
+            <p ng-show="loginfail"><span class="message error">Oops!</span> Login credentials are incorrect. </p>
+
+            <fieldset>
+                <legend><span class="message">Login Details</span></legend>
+                <input type="text" name="field1" ng-model="user.username" placeholder="Username *">
+                <input type="text" name="field3" ng-model="user.password" placeholder="Password *">
+            </fieldset>
+            <input type="submit" ng-click="login(user)" id="submit" value="Login" />
+        </div>
+    </div>
+    <div class="well  col-lg-7 col-md-7 col-sm-8-7">
+
+        <div class="formcss">
+            <p ng-show="regfail"><span class="message error">Oops!</span>{{regfail}} </p>
+
+            <fieldset>
+                <legend><span class="message">user information</span> </legend>
+                <label>Name</label>
+                <input type="text" name="field1" ng-model="user.name" placeholder="Your Full Name *">
+                <label>User Name</label>
+                <input type="text" name="field2" ng-model="user.username" placeholder="Preferred Username *">
+                <p>
+                    <label>Password</label>
+                    <span ng-show="user.password != passwordtemp && user.password  && passwordtemp">
+                        <span class="message error">Oops!</span> Passwords donot match.
+                    </span>
+                </p>
+                <input type="text" name="field3" ng-model="user.password" placeholder="Password *">
+                <input type="text" name="field4" ng-model="passwordtemp" ng-show="user.password" placeholder="Verify Password *">
+
+                <label>EmailId</label>
+                <input type="email" name="field5" ng-model="user.email" placeholder="Your Email *">
+                <textarea name="field6" ng-model="user.message" placeholder="Tell the world about you!!"></textarea>
+            </fieldset>
+            <fieldset>
+                <legend><span class="message">Car information</span> </legend>
+                <label for="job">You want to:</label>
+                <select id="usertype" name="field7" ng-model="user.usertype">
+                    <option value="driver">Drive a car</option>
+                    <option value="sharer">Share a car</option>
+                </select>
+                <label ng-show="user.usertype == 'driver'">Car reg number</label>
+                <input type="text" name="field8" ng-model="user.carnumber" ng-show="user.usertype == 'driver'" placeholder="Car number *">
+                <label ng-show="user.usertype == 'driver'">Car Model</label>
+                <input type="text" name="field9" ng-model="user.carmodel" ng-show="user.usertype == 'driver'" placeholder="Car Model *">
+                <label ng-show="user.usertype == 'driver'">Car Capacity</label>
+                <input type="number" name="field10" ng-model="user.carcapacity" ng-show="user.usertype == 'driver'" placeholder="Capacity *">
+                <label ng-show="user.usertype == 'driver'" for="job">Authorized to drive (without crimical history):</label>
+
+                <select ng-show="user.usertype == 'driver'" ng-model="user.authorized" name="field11">
+                    <option value="authorized_yes">Yes</option>
+                    <option value="authorized_no">No</option>
+                </select>
+            </fieldset>
+            <fieldset>
+                <legend><span class="message">Address Information</span> </legend>
+                <input type="text" name="field12" ng-model="user.address1" placeholder="Address Line 1 *">
+                <input type="text" name="field13" ng-model="user.address2" placeholder="Address Line 2 *">
+
+                <input type="text" name="field14" ng-model="user.city" placeholder="City *">
+                <label for="state">Select State</label>
+
+                <select id="state" ng-model="user.state" name="field15">
+                    <option value="AL">Alabama</option>
+                    <option value="AK">Alaska</option>
+                    <option value="AZ">Arizona</option>
+                    <option value="AR">Arkansas</option>
+                    <option value="CA">California</option>
+                    <option value="CO">Colorado</option>
+                    <option value="CT">Connecticut</option>
+                    <option value="DE">Delaware</option>
+                    <option value="DC">District Of Columbia</option>
+                    <option value="FL">Florida</option>
+                    <option value="GA">Georgia</option>
+                    <option value="HI">Hawaii</option>
+                    <option value="ID">Idaho</option>
+                    <option value="IL">Illinois</option>
+                    <option value="IN">Indiana</option>
+                    <option value="IA">Iowa</option>
+                    <option value="KS">Kansas</option>
+                    <option value="KY">Kentucky</option>
+                    <option value="LA">Louisiana</option>
+                    <option value="ME">Maine</option>
+                    <option value="MD">Maryland</option>
+                    <option value="MA">Massachusetts</option>
+                    <option value="MI">Michigan</option>
+                    <option value="MN">Minnesota</option>
+                    <option value="MS">Mississippi</option>
+                    <option value="MO">Missouri</option>
+                    <option value="MT">Montana</option>
+                    <option value="NE">Nebraska</option>
+                    <option value="NV">Nevada</option>
+                    <option value="NH">New Hampshire</option>
+                    <option value="NJ">New Jersey</option>
+                    <option value="NM">New Mexico</option>
+                    <option value="NY">New York</option>
+                    <option value="NC">North Carolina</option>
+                    <option value="ND">North Dakota</option>
+                    <option value="OH">Ohio</option>
+                    <option value="OK">Oklahoma</option>
+                    <option value="OR">Oregon</option>
+                    <option value="PA">Pennsylvania</option>
+                    <option value="RI">Rhode Island</option>
+                    <option value="SC">South Carolina</option>
+                    <option value="SD">South Dakota</option>
+                    <option value="TN">Tennessee</option>
+                    <option value="TX">Texas</option>
+                    <option value="UT">Utah</option>
+                    <option value="VT">Vermont</option>
+                    <option value="VA">Virginia</option>
+                    <option value="WA">Washington</option>
+                    <option value="WV">West Virginia</option>
+                    <option value="WI">Wisconsin</option>
+                    <option value="WY">Wyoming</option>
+                </select>
+
+            </fieldset>
+            <input type="submit" ng-click="addInfo(user)" id="submit" value="Register" />
+        </div>
+    </div>
+
+    <div class="content col-lg-8 col-md-8 col-sm-8">
+
+        <div>
+            <h3 class="">Experiments</h3>
+        </div>
+        <div class="">
+
+            <p>
+                Worked on creating the login and registration forms using css and AngularJS
+                <br />
+                Used AngularJS for hiding showing the data and CSS for creating the forms.
+        </div>
+        <h3 class="">Code Snippet</h3>
+        <textarea class="well" style="width:100%;height:300px">
+            <div class="formcss">
+                <p ng-show="loginfail"><span class="message error">Oops!</span> Login credentials are incorrect. </p>
+
+                <fieldset>
+                    <legend><span class="message">Login Details</span></legend>
+                    <input type="text" name="field1" ng-model="user.username" placeholder="Username *">
+                    <input type="text" name="field3" ng-model="user.password" placeholder="Password *">
+                </fieldset>
+                <input type="submit" ng-click="login(user)" id="submit" value="Login" />
+            </div>
+        </textarea>
+        <div>
+            <br />
+            <p>
+                In the code snippet we can see that ng-show of the error message is set to <strong>loginfail</strong>
+                which is set or reset in the controller scripts.
+            </p>
+        </div>
+
+        <h3 class="black">References</h3>
+        <div class="content">
+            <p><a href="https://plus.google.com/u/0/+JoseAnnunziato/posts" target="_blank">Professor Jose's classes</a></p>
+            <p><a href="http://getbootstrap.com" target="_blank">BootStrap format</a></p>
+            <p><a href="http://www.sanwebe.com/" target="_blank">CSS reference</a></p>
+        </div>
+
+        <footer id="source">
+            <h3 class="black">Source Code</h3>
+            <p><a href="../../..//fileview/Default.aspx?~/experiments/project002/forms.html" target="_blank">HTML file</a></p>
+            <p><a href="../../../fileview/Default.aspx?~/experiments/project002/carpool.css" target="_blank">Style Sheet</a></p>
+        </footer>
+    </div>
+</body>
+</html>

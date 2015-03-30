@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Options to display in Menu respective to user type</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <script src="../js/jquery.js"></script>
+    <script src="../js/jquery-ui.js"></script>
+
+    <script src="../js/angular.min.js"></script>
+    <script src="../js/angular-route.min.js"></script>
+    <script src="ngshow.js"></script>
+</head>
+<body ng-app="PasswordApp" ng-controller="PasswordAppController" class="container">
+    <div>
+        <div>
+            <h2 class="black heading">Options to display in Menu respective to user type</h2>
+        </div>
+        <div>
+            <h4>Click on the button to navigate to the Project application hosted on openshift</h4>
+        </div>
+        <a class="btn btn-default btn-lg" href='http://carpool-habibanodejs.rhcloud.com' target="_blank">
+            <span class=" glyphicon glyphicon-star" aria-hidden="true">
+            </span> Register and login
+        </a>
+    </div>
+    <div class="content col-lg-8 col-md-8 col-sm-8">
+
+        <div>
+            <h3 class="">Experiments</h3>
+        </div>
+        <div class="">
+            we can use <strong>username: user, password: user</strong> for logging in directly
+            <p>
+                While registering the user is asked to select whether he is willing to drive the car or is looking to share a place.
+            </p>
+            <p>
+                The user must register as  "you want to Drive a car" and insert his car information as basic data to register.
+                <br />
+                Upon successful registration an option <strong>Add a ride</strong> is displayed which is not shown when logged in "you want to share a car"
+            </p>
+        </div>
+        <h3 class="">Code Snippet</h3>
+        <h4>In AngularJS scope watch</h4>
+        <pre class="well">
+                   $scope.$watch(
+        function () {
+            return LoginService.getCurrentUser();
+        },
+       function (currentUser) {
+           $scope.currentUser = currentUser;
+           if (currentUser != null) {
+               if (currentUser.userType == 'driver') {
+                   $scope.isDriver = true;
+               } else {
+                   $scope.isDriver = null;
+               }
+           }
+           console.log("controller current user " + currentUser);
+       }, true);
+        </pre>
+        <div>
+            <br />
+            <p>
+                Here when the user is verified for the login status the user information from the db is retrieved.
+                <br />
+                The user information has a field "userType" which contains if the user is of type driver or a sharer and the field isDriver is set accordingly which is used in
+                ng-show of the main menu in AngularApp
+            </p>
+        </div>
+
+        <h3 class="black">References</h3>
+        <div class="content">
+            <p><a href="https://plus.google.com/u/0/+JoseAnnunziato/posts" target="_blank">Professor Jose's classes</a></p>
+            <p><a href="http://getbootstrap.com" target="_blank">BootStrap format</a></p>
+        </div>
+
+        <footer id="source">
+            <h3 class="black">Source Code</h3>
+            <p><a href="../../..//fileview/Default.aspx?~/experiments/project002/pages/homepage.html" target="_blank">Homepage file</a></p>
+            <p><a href="../../..//fileview/Default.aspx?~/experiments/project002/pages/login.html" target="_blank">Login file</a></p>
+            <p><a href="../../..//fileview/Default.aspx?~/experiments/project002/pages/register.html" target="_blank">Register file</a></p>
+            <p><a href="../../../fileview/Default.aspx?~/experiments/project002/pages/router.js" target="_blank">Router Angular file</a></p>
+            <p><a href="../../../fileview/Default.aspx?~/experiments/project002/pages/LoginService.js" target="_blank">Service Angular file</a></p>
+            <p><a href="../../../fileview/Default.aspx?~/experiments/project002/pages/server.js" target="_blank">Server file</a></p>
+        </footer>
+    </div>
+</body>
+</html>

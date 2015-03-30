@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Working with mongoose validator</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <script src="../js/jquery.js"></script>
+    <script src="../js/jquery-ui.js"></script>
+
+    <script src="../js/angular.min.js"></script>
+    <script src="../js/angular-route.min.js"></script>
+    <script src="ngshow.js"></script>
+</head>
+<body ng-app="PasswordApp" ng-controller="PasswordAppController" class="container">
+    <div>
+        <div>
+            <h2 class="black heading">Applying constraints on fields in the schema</h2>
+        </div>
+        <div>
+            <h4>Click on the button to navigate to the Project application hosted on openshift</h4>
+        </div>
+        <a class="btn btn-default btn-lg" href='http://carpool-habibanodejs.rhcloud.com' target="_blank">
+            <span class=" glyphicon glyphicon-star" aria-hidden="true">
+            </span> validations
+        </a>
+    </div>
+    <div class="content col-lg-8 col-md-8 col-sm-8">
+
+        <div>
+            <h3 class="">Experiments</h3>
+        </div>
+        <div class="">
+            <p>
+              If we apply constraints like required and unique on the schema and they are validated before entering the data inside the schema
+            </p>
+            <p>
+              If the data doesnot follow the rules, errors are raised
+            </p>
+        </div>
+        <h3 class="">Code Snippet</h3>
+        <h4>In Server.js</h4>
+        <pre class="well">
+            var uniqueValidator = require('mongoose-unique-validator');
+
+                   var LoginDBSchema = new mongoose.Schema({
+    username:  { type: String, required: true, unique: true },
+    password:  { type: String, required: true},
+    usertype: { type: String, required: true },
+}, { collection: 'LoginDBModel' });
+var UserInfoDBSchema = new mongoose.Schema({
+    username: { type: String, required: true, unique: true },
+    name:  { type: String, required: true},
+    email:  { type: String, required: true, unique: true },
+    carnumber:  { type: String},
+    carmodel: { type: String },
+    carcapacity: { type: Number },
+    authorized: { type: String },
+    address1: { type: String, required: true },
+    address2: { type: String, required: true },
+    city: { type: String, required: true },
+    state: { type: String, required: true }
+}, { collection: 'UserInfoDBModel' });
+LoginDBSchema.plugin(uniqueValidator);
+UserInfoDBSchema.plugin(uniqueValidator);
+        </pre>
+        <div>
+            <br />
+            <p>
+               In the above code constraints are applied on all of the fields as specified which are validated using the mongoose-validator while 
+                inserting the data
+            </p>
+        </div>
+
+        <h3 class="black">References</h3>
+        <div class="content">
+            <p><a href="https://plus.google.com/u/0/+JoseAnnunziato/posts" target="_blank">Professor Jose's classes</a></p>
+            <p><a href="http://getbootstrap.com" target="_blank">BootStrap format</a></p>
+        </div>
+
+        <footer id="source">
+            <h3 class="black">Source Code</h3>
+            <p><a href="../../..//fileview/Default.aspx?~/experiments/project002/pages/homepage.html" target="_blank">Homepage file</a></p>
+            <p><a href="../../..//fileview/Default.aspx?~/experiments/project002/pages/login.html" target="_blank">Login file</a></p>
+            <p><a href="../../..//fileview/Default.aspx?~/experiments/project002/pages/register.html" target="_blank">Register file</a></p>
+            <p><a href="../../../fileview/Default.aspx?~/experiments/project002/pages/router.js" target="_blank">Router Angular file</a></p>
+            <p><a href="../../../fileview/Default.aspx?~/experiments/project002/pages/LoginService.js" target="_blank">Service Angular file</a></p>
+            <p><a href="../../../fileview/Default.aspx?~/experiments/project002/pages/server.js" target="_blank">Server file</a></p>
+        </footer>
+    </div>
+</body>
+</html>

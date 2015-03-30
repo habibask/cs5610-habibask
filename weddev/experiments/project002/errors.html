@@ -1,0 +1,149 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Working with Errors thrown from mongoose validator</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <script src="../js/jquery.js"></script>
+    <script src="../js/jquery-ui.js"></script>
+
+    <script src="../js/angular.min.js"></script>
+    <script src="../js/angular-route.min.js"></script>
+    <script src="ngshow.js"></script>
+</head>
+<body ng-app="PasswordApp" ng-controller="PasswordAppController" class="container">
+    <div>
+        <h2>Errors with Validation Constraints</h2>
+        <div>
+            <h4 class="black heading">The constraint errors are propagated back to the client via the service and router scripts to the register.html page from the server</h4>
+        </div>
+        <div>
+            <h4>Click on the button to navigate to the Project application hosted on openshift</h4>
+        </div>
+        <a class="btn btn-default btn-lg" href='http://carpool-habibanodejs.rhcloud.com' target="_blank">
+            <span class=" glyphicon glyphicon-star" aria-hidden="true">
+            </span> Errors with Constraints
+        </a>
+    </div>
+    <div class="content col-lg-8 col-md-8 col-sm-8">
+
+        <div>
+            <h3 class="">Experiments</h3>
+        </div>
+        <div class="">
+            <p>
+                If we apply constraints like required and unique on the schema and they are
+                validated before entering the data inside the schema.
+                <br />
+                Error is generated like a JSON object which is then sent back as a response from the app.post() method.
+                <br />
+                This error is handled by the Service method which checks for the error and returns the error object to the Angular controller.
+                <br />
+                This error is then iterated over and shown to the message in the register.html
+            </p>
+            <p>
+                <img src="errors.PNG" width="500" height="300" style="border:solid;border-color:lightblue"/>
+            </p>
+        </div>
+        <h3 class="">Code Snippet</h3>
+        <h4>In Server register post method</h4>
+
+        <pre class="well">
+                       app.post("/register", function (req, res) {
+    console.log(req.body);
+     var user = req.body;
+    var newUser = new LoginDBModel({ username: user.username, password: user.password, usertype:user.usertype });
+    newUser.save(function (err) {
+        console.log(user);
+        if (err == null) {
+            var newUserInfo = new UserInfoDBModel({
+                username: user.username, name: user.name, email: user.email,
+                carnumber: user.carnumber, carmodel: user.carmodel, carcapacity: user.carcapacity, authorized: user.authorized,
+                address1: user.address1, address2: user.address2, city: user.city, state: user.state
+            });
+            newUserInfo.save(function (err, userlocal) {
+                if (err == null) {
+                    UserInfoDBModel.find({ username: req.body.username }, function (err, data) {
+                        console.log(data);
+                    });
+                   LoginDBModel.find({ username: req.body.username }, function (err, data) {
+                        console.log(data);
+                        res.send("success");
+                    });
+                    res.send("success");
+                } else {
+                     res.send(err);
+                    //res.send("error");
+                }
+            });
+            res.send("success");
+        } else {
+            console.log("Error in LoginDB insert");
+            res.send(err);
+        }
+    });
+    
+});
+        </pre>
+        <h4>In Angular Service method</h4>
+
+        <pre class="well">
+            var addInfo = function (user, callback) {
+        console.log("Inside Register Service");
+        console.log(user);
+        $http.post("/register", user)
+        .success(function (res) {
+            if (res == "success") {
+                console.log("inside Service add" + res.username);
+                console.log(res);
+                checkInfo(user);
+            } else {
+                callback(res);
+            }
+        });
+    };
+<</pre>
+        <h4>In Angular Controller method</h4>
+
+        <pre class="well">
+            $scope.addInfo = function (user) {
+        $scope.regfail = '';
+        LoginService.add(user, function (res) {
+            console.log("Error forwared to Router js");
+            console.log(res.errors);
+            for (var field in res.errors) {
+                if (res.errors.hasOwnProperty(field)) {
+                    var message = res.errors[field].message;
+                    $scope.regfail += " || "+res.errors[field].message
+                    console.log(res.errors[field].message);
+                }
+            }
+            $scope.regfail = res;
+        });
+    };
+</pre>
+        <div>
+            <br />
+            <p>
+                In the above code constraints are applied on all of the fields as specified which are validated using the mongoose-validator while
+                inserting the data
+            </p>
+        </div>
+        <h3 class="black">References</h3>
+        <div class="content">
+            <p><a href="https://plus.google.com/u/0/+JoseAnnunziato/posts" target="_blank">Professor Jose's classes</a></p>
+            <p><a href="http://getbootstrap.com" target="_blank">BootStrap format</a></p>
+        </div>
+        <footer id="source">
+            <h3 class="black">Source Code</h3>
+            <p><a href="../../..//fileview/Default.aspx?~/experiments/project002/pages/homepage.html" target="_blank">Homepage file</a></p>
+            <p><a href="../../..//fileview/Default.aspx?~/experiments/project002/pages/login.html" target="_blank">Login file</a></p>
+            <p><a href="../../..//fileview/Default.aspx?~/experiments/project002/pages/register.html" target="_blank">Register file</a></p>
+            <p><a href="../../../fileview/Default.aspx?~/experiments/project002/pages/router.js" target="_blank">Router Angular file</a></p>
+            <p><a href="../../../fileview/Default.aspx?~/experiments/project002/pages/LoginService.js" target="_blank">Service Angular file</a></p>
+            <p><a href="../../../fileview/Default.aspx?~/experiments/project002/pages/server.js" target="_blank">Server file</a></p>
+        </footer>
+    </div>
+</body>
+</html>
