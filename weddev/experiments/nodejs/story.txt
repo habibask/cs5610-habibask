@@ -1,2 +1,2 @@
 ./../../story/whatisnext.htm?../experiments/nodejs/  Nodejs experiments
-nodejs.html                 Book list manager with nodejs and angularjs
+nodejs.html                 Book list manager with nodejs and angularjs (5 experiments are hosted together in openshift)
