@@ -1,0 +1,12 @@
+﻿
+
+<div class="formcss">
+    <p ng-show="loginfail"><span class="messagecss error">Oops!</span> {{loginfail}} </p>
+
+    <fieldset>
+        <legend><span class="messagecss">Login Details</span></legend>
+        <input type="text" class="username" ng-model="user.username" placeholder="Username *">
+        <input type="password" class="password" ng-model="user.password" placeholder="Password *">
+    </fieldset>
+    <input type="button" ng-click="login(user)" id="submit" value="Login" />
+</div>

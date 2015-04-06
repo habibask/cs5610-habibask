@@ -1,0 +1,6 @@
+./../../story/whatisnext.htm?../experiments/project003/  Project experiments - Week 3
+reg-validations.html           Validations on the register and login page and highlighting with CSS
+tab-layout.html                Tabbed layout for the profile page
+edit-profiles.html             Option to edit information in profile page
+add-ride.html                  The form to add ride info
+search-point.html              Checking if a Position is present on a route 

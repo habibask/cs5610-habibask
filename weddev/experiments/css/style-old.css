@@ -1,0 +1,165 @@
+﻿
+body {
+    
+    margin: 150px;
+    margin-top: 30px;
+}
+
+.responsive {
+    margin-left: 100px;
+    margin-right: 100px;
+    margin-bottom: 100px;
+}
+
+    .responsive div {
+        float: left;
+        width: 500px;
+    }
+
+.inputs {
+    padding: 15px;
+    font-size: 14pt;
+}
+
+h3 {
+    padding-top: 30px;
+    color: darkred;
+}
+
+@media screen and (min-width: 0px) and (max-width: 1000px) {
+    body {
+        margin-left: 50px;
+        margin-right: 50px;
+        margin-bottom: 50px;
+    }
+
+    .responsive {
+        font-size: 8pt;
+    }
+
+        .responsive p {
+            font-size: 8pt;
+            background-color: lightcoral;
+        }
+
+        .responsive div {
+            width: 400px;
+        }
+
+    .responsive {
+        margin-left: 50px;
+        margin-right: 50px;
+        margin-bottom: 50px;
+    }
+}
+
+form button {
+    padding: 8px;
+    white-space: nowrap;
+}
+
+.buttons {
+    width: 200px;
+    float: left;
+    align-content: flex-end;
+}
+
+label {
+    width: 130px;
+    float: left;
+    text-align: right;
+    padding: 8px;
+}
+
+.photo {
+    float: right;
+}
+
+img {
+    border-radius:30pt;
+}
+
+ul.master_navigation {
+    font-size: 100%;
+    font-weight: bold;
+    text-align: center;
+    list-style: none;
+    margin: 0.5em 0;
+    padding: 0;
+}
+
+    ul.master_navigation li {
+        display: inline-block;
+        padding: 0 0.5%;
+        margin-right: 0.5em;
+        align: center;
+    }
+
+        ul.master_navigation li a {
+            color: #08f;
+            text-decoration: none;
+            color: white;
+            background-color: black;
+            text-align: center;
+            padding: 3px;
+            border-radius: 20pt;
+            border-left-style: inset;
+            border-color: #08f;
+            font-family: 'Buxton Sketch';
+            font-size: 14pt;
+        }
+
+a:visited {
+    color: blue;
+}
+
+ul.master_navigation li a:hover {
+    color: white;
+    background-color: #0404B4;
+    text-decoration: none;
+}
+
+.parag {
+    text-align: justify;
+    font-family: Calibri;
+    font-size: 13pt;
+    color: black;
+    padding-right:10px;
+    font-family: 'Microsoft YaHei';
+}
+
+.text {
+    text-indent: 100px;
+    padding-top: 13px;
+
+}
+
+.parag{
+    padding:5px;
+    margin:5px;
+}
+
+h1 {
+    color: #0404B4;
+    font-family: 'Buxton Sketch';
+    font-size: 40px;
+    margin:5px;
+}
+
+.pad {
+    padding: 5px;
+}
+
+.imagetext{
+    padding:30pt;
+    padding-left:10pt;
+    border:ridge;
+    border-radius:100px;
+    width:80px;
+    border-color:red;
+    background-color:black;
+    color:white;
+    font-family:'Buxton Sketch';
+    text-decoration:none;
+    font-size:20pt;
+}

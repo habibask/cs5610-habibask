@@ -5,3 +5,7 @@
 ../../story/index.htm?../experiments/ajax-angular/story.txt       Week4 - AJAX and Angular.js
 ../../story/index.htm?../experiments/angular-routing/story.txt    Week5 - Angular routing
 ../../story/index.htm?../experiments/nodejs/story.txt             Week6 - NodeJS
+../../story/index.htm?../experiments/mongo/story.txt              Week7 - NodeJS with MongoDB
+../../story/index.htm?../experiments/project/story.txt            Week8 - Project experiments with PassportJS
+../../story/index.htm?../experiments/project002/story.txt         Week9 - Project experiments week 2
+../../story/index.htm?../experiments/project003/story.txt         Week10 - Project experiments week 3

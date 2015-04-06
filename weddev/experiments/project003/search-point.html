@@ -1,0 +1,114 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Angular directives</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <script src="../js/jquery.js"></script>
+    <script src="../js/jquery-ui.js"></script>
+
+    <script src="../js/angular.min.js"></script>
+    <script src="../js/angular-route.min.js"></script>
+    <script src="ngshow.js"></script>
+</head>
+<body class="container">
+    <div>
+        <div>
+            <h2 class="black heading">Searching if a latlong position exists on a route</h2>
+        </div>
+        <div>
+            <h4>Click on the button to navigate to the login page in the application hosted on openshift (then open search a ride page)</h4>
+        </div>
+        <a class="btn btn-default btn-lg" href='http://carpool-habibanodejs.rhcloud.com/#/searchride' target="_blank">
+            <span class=" glyphicon glyphicon-star" aria-hidden="true">
+            </span> Search a ride
+        </a>
+    </div>
+    <div>
+        <p>
+            <strong>Username:user Password:user</strong>
+        </p>
+    </div>
+    <div>
+        <h3 class="">Experiments</h3>
+    </div>
+    <div class="">
+
+        <p>
+            In the search page, I so far worked on finding out if an entered location exists on the route.
+            <br />
+            If the position entered lies on that particular route of all the routes available in the database, it returns true.
+            <br />
+        </p>
+        
+    </div>
+    <h3 class="">Code Snippet</h3>
+    <pre class="well" style="width:100%;height:300px">
+               $scope.searchRides = function () {
+        //retrieve lat long of the entered source
+        var geocoder = new google.maps.Geocoder();
+        var address = 'allston, MA';//document.getElementById("add").value;
+        geocoder.geocode({ 'address': address }, function (results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                var lat = results[0].geometry.location.lat();
+                var long = results[0].geometry.location.lng();
+                console.log("lat - " + lat);
+                console.log("long - " + long);
+            }
+        });
+        LoginService.searchRides(function (res) {
+            var poly = [];
+            var poly1 = [];
+            var myPosition = new google.maps.LatLng(42.3576, -71.1227);
+            var cascadiaFault1;
+            var directionDisplay,
+        directionsService = new google.maps.DirectionsService(),
+        map;
+            for (var idx in res) {
+                console.log("Object"+res[idx]);
+                var request = {
+                    origin: res[idx].source,
+                    destination: res[idx].destination,
+                    travelMode: google.maps.DirectionsTravelMode['DRIVING']
+                };
+                directionsService.route(request, function (response, status) {
+                    if (status == google.maps.DirectionsStatus.OK) {
+                        poly1 = response.routes[0].overview_path;
+                        console.log(poly1);
+                        poly = new google.maps.Polyline({
+                            path: poly1,
+                            map: map
+                        })
+                        alert(google.maps.geometry.poly.containsLocation(myPosition, poly, 0.9));
+                        console.log(res[idx].destination + " - value is -" + google.maps.geometry.poly.containsLocation(myPosition, poly, 0.9));
+                    }
+                });
+               
+            }
+        });
+    }
+    </pre>
+    <div>
+        <br />
+        <p>
+          This code explains how containsLocation() method of the google api is used.
+        </p>
+    </div>
+
+    <h3 class="black">References</h3>
+    <div class="content">
+        <p><a href="https://plus.google.com/u/0/+JoseAnnunziato/posts" target="_blank">Professor Jose's classes</a></p>
+    </div>
+
+    <footer id="source">
+        <h3 class="black">Source Code</h3>
+        <p><a href="../../fileview/Default.aspx?~/experiments/project003/pages/login.html" target="_blank">Login file</a></p>
+        <p><a href="../../fileview/Default.aspx?~/experiments/project003/pages/profile.html" target="_blank">profile file</a></p>
+        <p><a href="../../fileview/Default.aspx?~/experiments/project003/pages/search-ride.html" target="_blank">Search ride HTML file</a></p>
+        <p><a href="../../fileview/Default.aspx?~/experiments/project003/pages/router.js" target="_blank">Router Angular file</a></p>
+        <p><a href="../../fileview/Default.aspx?~/experiments/project003/pages/searchridescontroller.js" target="_blank">Search a ride controller file</a></p>
+        <p><a href="../../fileview/Default.aspx?~/experiments/project003/pages/server.js" target="_blank">Server file</a></p>
+    </footer>
+</body>
+</html>

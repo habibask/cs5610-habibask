@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Angular directives</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <script src="../js/jquery.js"></script>
+    <script src="../js/jquery-ui.js"></script>
+
+    <script src="../js/angular.min.js"></script>
+    <script src="../js/angular-route.min.js"></script>
+    <script src="ngshow.js"></script>
+</head>
+<body class="container">
+    <div>
+        <div>
+            <h2 class="black heading">Tab Layout for the profile page</h2>
+        </div>
+        <div>
+            <h4>Click on the button to navigate to the login page in the application hosted on openshift</h4>
+        </div>
+        <a class="btn btn-default btn-lg" href='http://carpool-habibanodejs.rhcloud.com/#/login' target="_blank">
+            <span class=" glyphicon glyphicon-star" aria-hidden="true">
+            </span> Login and see profile
+        </a>
+        
+    </div>
+    <div>
+        <p>
+            <strong>Username:user Password:user</strong>
+        </p>
+    </div>
+    <div>
+        <h3 class="">Experiments</h3>
+    </div>
+    <div class="">
+
+        <p>
+            A tabbed layout where there is a tab for
+            <br />
+            1. User Introduction - About the user and the interests
+            <br />
+            2. History - the rides the user entered or he added to share
+            <br />
+            3. People - All the people the user shared a ride so far with
+            <br />
+            4. Settings - a page where the user can see the information entered during registration
+        </p>
+
+    </div>
+    <h3 class="">Code Snippet</h3>
+    <pre class="well" style="width:100%;height:300px">
+                  app.controller("profilecontroller", function ($scope, $sce, $http, $location, LoginService) {
+    $(".tabs-menu a").click(function (event) {
+        event.preventDefault();
+        $(this).parent().addClass("current");
+        $(this).parent().siblings().removeClass("current");
+        var tab = $(this).attr("href");
+        if (tab == '#tab-2') {
+            var rides = LoginService.getRides(function (res) {
+                console.log("Inside getrides in controller");
+                console.log(res);
+                $scope.rides = res;
+            });
+        }
+        $(".tab-content").not(tab).css("display", "none");
+        $(tab).fadeIn();
+    });
+}
+    </pre>
+    <div>
+        <br />
+        <p>
+            In this code the we can see a controller assigned to the profile page.
+            When we click on each tab menu respective page is open which is available in the profile.html
+        </p>
+    </div>
+
+    <h3 class="black">References</h3>
+    <div class="content">
+        <p><a href="https://plus.google.com/u/0/+JoseAnnunziato/posts" target="_blank">Professor Jose's classes</a></p>
+    </div>
+
+    <footer id="source">
+        <h3 class="black">Source Code</h3>
+        <p><a href="../../fileview/Default.aspx?~/experiments/project003/pages/login.html" target="_blank">Login file</a></p>
+        <p><a href="../../fileview/Default.aspx?~/experiments/project003/pages/profile.html" target="_blank">Profile HTML</a></p>
+        <p><a href="../../fileview/Default.aspx?~/experiments/project003/pages/router.js" target="_blank">Router Angular file</a></p>
+        <p><a href="../../fileview/Default.aspx?~/experiments/project003/pages/profilecontroller.js" target="_blank">profilecontroller file</a></p>
+        <p><a href="../../fileview/Default.aspx?~/experiments/project003/pages/server.js" target="_blank">Server file</a></p>
+    </footer>
+</body>
+</html>

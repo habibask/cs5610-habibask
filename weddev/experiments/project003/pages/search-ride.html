@@ -1,0 +1,46 @@
+﻿
+<div class="formcssaddride" ng-controller="searchridescontroller">
+    <form>
+
+        <p ng-show="addridefail"><span class="messagecss error">Oops!</span>{{searchridefail}} </p>
+
+        <div id="" class="">
+            <input type="button" class="button" id="search" ng-click="searchRides()" value="Ok" />
+            <div id="map-canvas"></div>
+            <fieldset>
+                <legend>
+                    <span class="messagecss">Search results</span>
+                </legend>
+                <table class=".history">
+                    <thead>
+                        <tr>
+                            <td>Date Added</td>
+                            <td>Source</td>
+                            <td>Destination</td>
+                            <td>Persons required</td>
+                            <td>Proximity</td>
+                            <td>Cost</td>
+                            <td>Type</td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="ride in resultrides | orderBy : '-created'">
+                            <td>{{ride.created | date:'MM/dd/yyyy HH:mm a'}}</td>
+                            <td>{{ride.source}}</td>
+                            <td>{{ride.destination}}</td>
+                            <td>{{ride.personcount}}</td>
+                            <td>{{ride.proximity}}</td>
+                            <td>{{ride.cost}}</td>
+                            <td></td>
+                            <td>
+                                <span class="icon icon-pencil" style="display:inline-block" id="userinfo"></span>
+                                <input type="button" class="button" style="display:none" id="okbuttonuser" ng-click="editrideinfo()" value="Ok" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </fieldset>
+        </div>
+    </form>
+</div>

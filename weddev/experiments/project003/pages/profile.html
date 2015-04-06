@@ -1,0 +1,177 @@
+﻿<div class=" demo-2 tabs-container" ng-controller="profilecontroller">
+    <div class="tabsmenucontainer">
+        <header class="">
+            <div class="codrops-demos inner">
+                <ul class="nav nav-pills tabs-menu" style="list-style:none">
+                    <li class="current"><a href="#tab-1">About Me</a></li>
+                    <li><a href="#tab-2">History</a></li>
+                    <li><a href="#tab-3">People</a></li>
+                    <li><a href="#tab-4">Settings</a></li>
+                </ul>
+            </div>
+        </header>
+
+    </div>
+    <div class="tab">
+
+        <div id="tab-1" class="tab-content">
+            <div class="imgcss">
+
+                <img src="../images/img.jpg" height="150" weight="150" />
+            </div>
+
+            <div>
+                <div class="profilecontent1">
+                    <p>
+                        <h3 class="headers">
+                            This is me:<span class="icon icon-pencil" style="display:inline-block" id="personalmsg"></span>
+                            <span>
+                                <input type="button" class="button" style="display:none" id="okbutton1" ng-click="doneEditing1()" value="Ok" />
+                            </span>
+                        </h3>
+                    <p id="personalmsgpara" ng-model="personalmessage" ng-bind="currentUser.personalmessage">
+                    </p>
+
+                    </p>
+                </div>
+                <div class="profilecontent2">
+                    <p>
+                        <h3 class="headers">
+                            My interests:<span class="icon icon-pencil" id="interests"></span>
+                            <span>
+                                <input type="button" class="button" style="display:none" id="okbutton2" ng-click="doneEditing2()" value="Ok" />
+                            </span>
+                        </h3>
+                    <p id="personalinterestpara" ng-model="personalinterests" ng-bind="currentUser.personalinterests">
+                    </p>
+                </div>
+            </div>
+            <div style="position:relative;bottom:0">
+                <input type="button" id="savebutton" class="button" ng-click="updateText(currentUser)" style="display:none" value="Save" />
+            </div>
+        </div>
+
+        <div id="tab-2" class="tab-content">
+            <fieldset>
+                <legend>
+                    <span class="messagecss">Previous rides</span>
+                </legend>
+                <table class=".history">
+                    <thead>
+                        <tr>
+                            <td>Date Added</td>
+                            <td>Source</td>
+                            <td>Destination</td>
+                            <td>Persons required</td>
+                            <td>Proximity</td>
+                            <td>Cost</td>
+                            <td>Type</td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="ride in rides | orderBy : '-created'">
+                            <td>{{ride.created | date:'MM/dd/yyyy HH:mm a'}}</td>
+                            <td>{{ride.source}}</td>
+                            <td>{{ride.destination}}</td>
+                            <td>{{ride.personcount}}</td>
+                            <td>{{ride.proximity}}</td>
+                            <td>{{ride.cost}}</td>
+                            <td></td>
+                            <td><span class="icon icon-pencil" style="display:inline-block" id="userinfo"></span>
+                                <input type="button" class="button" style="display:none" id="okbuttonuser" ng-click="editrideinfo()" value="Ok" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </fieldset>
+        </div>
+        <div id="tab-3" class="tab-content">
+            Tab3
+        </div>
+        <div id="tab-4" class="tab-content ">
+            <fieldset>
+                <legend>
+                    <span class="messagecss">user information</span>
+                    <span class="icon icon-pencil" style="display:inline-block" id="userinfo"></span>
+                    <span>
+                        <input type="button" class="button" style="display:none" id="okbuttonuser" ng-click="edituserinfo()" value="Ok" />
+                    </span>
+                </legend>
+                <table>
+                    <tr>
+                        <td class="headerlabel"><label>Name</label></td>
+                        <td><input id="name" type="text" ng-model="currentUser.name" ng-bind="currentUser.name" disabled="disabled" /></td>
+                    </tr>
+                    <tr>
+                        <td class="headerlabel"><label>Username</label></td>
+                        <td><input id="username" ng-model="currentUser.username" ng-bind="currentUser.username" disabled="disabled" type="text" /></td>
+                    </tr>
+                    <tr>
+                        <td class="headerlabel"><label>Email</label></td>
+                        <td><input id="email" ng-model="currentUser.email" ng-bind="currentUser.email" disabled="disabled" type="text" /></td>
+                    </tr>
+                </table>
+
+            </fieldset>
+            <fieldset>
+                <legend>
+                    <span class="messagecss">Car information</span>
+                    <span class="icon icon-pencil" style="display:inline-block" id="carinfo"></span>
+                    <span>
+                        <input type="button" class="button" style="display:none" id="okbuttoncar" ng-click="editcarinfo()" value="Ok" />
+                    </span>
+                </legend>
+                <table>
+                    <tr>
+                        <td class="headerlabel"><label>You want to:</label></td>
+                        <td><input id="usertype" ng-model="currentUser.usertype" ng-bind="currentUser.usertype" disabled="disabled" type="text" /></td>
+                    </tr>
+                    <tr>
+                        <td class="headerlabel"><label>Car reg number</label></td>
+                        <td><input id="carnumber" ng-model="currentUser.carnumber" ng-bind="currentUser.carnumber" disabled="disabled" type="text" /></td>
+                    </tr>
+                    <tr>
+                        <td class="headerlabel"><label>Car Model</label></td>
+                        <td><input id="carmodel" ng-model="currentUser.carmodel" ng-bind="currentUser.carmodel" disabled="disabled" type="text" /></td>
+                    </tr>
+                    <tr>
+                        <td class="headerlabel"><label>Car Capacity</label></td>
+                        <td><input id="carcapacity" ng-model="currentUser.carcapacity" ng-bind="currentUser.carcapacity" disabled="disabled" type="text" /></td>
+                    </tr>
+                </table>
+            </fieldset>
+            <fieldset>
+                <legend>
+                    <span class="messagecss">Address Information</span>
+                    <span class="icon icon-pencil" style="display:inline-block" id="addressinfo"></span>
+                    <span>
+                        <input type="button" class="button" style="display:none" id="okbuttonaddress" ng-click="editaddressinfo()" value="Ok" />
+                    </span>
+                </legend>
+                <table>
+                    <tr>
+                        <td class="headerlabel"><label>Address Line 1</label></td>
+                        <td><input id="address1" ng-model="currentUser.address1" ng-bind="currentUser.address1" disabled="disabled" type="text" /></td>
+                    </tr>
+                    <tr>
+                        <td class="headerlabel"><label>Address Line 2</label></td>
+                        <td><input id="address2" ng-model="currentUser.address2" ng-bind="currentUser.address2" disabled="disabled" type="text" /></td>
+                    </tr>
+                    <tr>
+                        <td class="headerlabel"><label>City</label></td>
+                        <td><input id="city" ng-model="currentUser.city" ng-bind="currentUser.city" disabled="disabled" type="text" /></td>
+                    </tr>
+                    <tr>
+                        <td class="headerlabel"><label>State</label></td>
+                        <td><input id="state" ng-model="currentUser.state" ng-bind="currentUser.state" disabled="disabled" type="text" /></td>
+                    </tr>
+                </table>
+            </fieldset>
+            <div style="position:relative;bottom:0">
+                <input type="button" id="savebutton2" ng-click="updateInfo(currentUser)" class="button" style="display:none" value="Save" />
+            </div>
+        </div>
+
+    </div>
+</div>

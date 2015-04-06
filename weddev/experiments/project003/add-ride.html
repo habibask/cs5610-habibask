@@ -1,0 +1,139 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Angular directives</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <script src="../js/jquery.js"></script>
+    <script src="../js/jquery-ui.js"></script>
+
+    <script src="../js/angular.min.js"></script>
+    <script src="../js/angular-route.min.js"></script>
+    <script src="ngshow.js"></script>
+</head>
+<body class="container">
+    <div>
+        <div>
+            <h2 class="black heading">Adding a ride to the database by registered user</h2>
+        </div>
+        <div>
+            <h4>Click on the button to navigate to the login page in the application hosted on openshift (then open add a ride page)</h4>
+        </div>
+        <a class="btn btn-default btn-lg" href='http://carpool-habibanodejs.rhcloud.com/#/login' target="_blank">
+            <span class=" glyphicon glyphicon-star" aria-hidden="true">
+            </span> Add a ride
+        </a>
+    </div>
+    <div>
+        <p>
+            <strong>Username:user Password:user</strong>
+        </p>
+    </div>
+    <div>
+        <h3 class="">Experiments</h3>
+    </div>
+    <div class="">
+
+        <p>
+            The add a ride page consists of a form where the user will add his ride to be shared.
+            <br />
+            The form contains source and destination fields which when entered and button is clicked shows the rout on the map.
+            <br />
+            Only when the source and destination are correct the user can enter the form successfully
+            <br />
+            There are 3 more fields for persons required, cost and proximity the can user can deviate to pick up a person.
+        </p>
+        
+    </div>
+    <h3 class="">Code Snippet</h3>
+    <pre class="well" style="width:100%;height:300px">
+           var fieldsRequired = ['source', 'destination', 'personcount', 'proximity', 'cost']
+    $scope.insertRideInfo = function (ride) {
+        for (var field in fieldsRequired) {
+            $("." + fieldsRequired[field]).css({
+                'box-shadow': 'none',
+                'outline': 'none',
+                'border-color': 'none'
+            });
+        }
+        var fieldsEntered = [];
+        $scope.addridefail = '';
+        if (ride == null) {
+            console.log("inside insertrideinfo nulll");
+            $scope.addridefail = "You cannot escape from entering the form"
+            for (var field in fieldsRequired) {
+                $("." + fieldsRequired[field]).css({
+                    'box-shadow': '0 0 10px crimson',
+                    'outline': 'none',
+                    'border-color': '#9ecaed'
+                });
+            }
+        } else {
+            //get all the fields that are entered
+            for (var field in ride) {
+                if (ride.hasOwnProperty(field)) {
+                    var message = ride[field];
+                    if ($.trim(message) != '') {
+                        fieldsEntered.push(field);
+                    }
+                }
+            }
+            //get all the fields that are not entered
+            var unenteredFields = fieldsRequired.filter(function (el) {
+                return (fieldsEntered.indexOf(el) < 0 );
+            });
+            if (unenteredFields.length != 0) {
+                $scope.addridefail = "Fields ";
+                //add focus and show the field in the message regfail
+                for (var field in unenteredFields) {
+                    $("." + unenteredFields[field]).css({
+                        'box-shadow': '0 0 10px crimson',
+                        'outline': 'none',
+                        'border-color': '#9ecaed'
+                    });
+                    $scope.addridefail += unenteredFields[field] + ", ";
+                }
+                $scope.addridefail += "are to be entered";
+            }
+           
+            //If all the fields are entered then send the object to Service to add
+            if (unenteredFields.length == 0 && $scope.addridefail == '') {
+                console.log("display of results property " + $("#results").css('display'))
+                if ($("#results").css('display') == 'none') {
+                    $scope.addridefail = "Source or destination doesnot exist!!";
+                } else {
+                    $scope.addridefail = '';
+                    LoginService.addRide(ride, function (res) {
+                        console.log("Add ride Error forwared to Router js");
+                        //Set any errors sent from service to the regfail
+                        $scope.addridefail = res;
+                    });
+                }
+            }
+        };
+    };
+    </pre>
+    <div>
+        <br />
+        <p>
+           This code explains how the informtion is validated and sent to the server to insert into the mongodb.
+        </p>
+    </div>
+
+    <h3 class="black">References</h3>
+    <div class="content">
+        <p><a href="https://plus.google.com/u/0/+JoseAnnunziato/posts" target="_blank">Professor Jose's classes</a></p>
+    </div>
+
+    <footer id="source">
+        <h3 class="black">Source Code</h3>
+        <p><a href="../../fileview/Default.aspx?~/experiments/project003/pages/login.html" target="_blank">Login file</a></p>
+        <p><a href="../../fileview/Default.aspx?~/experiments/project003/pages/profile.html" target="_blank">profile file</a></p>
+        <p><a href="../../fileview/Default.aspx?~/experiments/project003/pages/add-ride.html" target="_blank">Add ride HTML file</a></p>
+        <p><a href="../../fileview/Default.aspx?~/experiments/project003/pages/router.js" target="_blank">Router Angular file</a></p>
+        <p><a href="../../fileview/Default.aspx?~/experiments/project003/pages/addridecontroller.js" target="_blank">add a ride controller file</a></p>
+        <p><a href="../../fileview/Default.aspx?~/experiments/project003/pages/server.js" target="_blank">Server file</a></p>
+    </footer>
+</body>
+</html>
